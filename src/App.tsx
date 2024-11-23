@@ -18,13 +18,12 @@ function App() {
     localStorage.setItem('shoppingItems', JSON.stringify(items));
   }, [items]);
 
-  const handleAddItem = (name: string, category: string) => {
+  const handleAddItem = (name: string) => {
     setItems((prev) => [
       ...prev,
       {
         id: crypto.randomUUID(),
         name,
-        category,
         inWeeklyShop: false,
         quantity: 1,
         lastAdded: new Date().toISOString(),
@@ -104,6 +103,13 @@ function App() {
     );
   };
 
+  const handleReorder = (startIndex: number, endIndex: number) => {
+    const result = Array.from(items);
+    const [removed] = result.splice(startIndex, 1);
+    result.splice(endIndex, 0, removed);
+    setItems(result);
+  };
+
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-4 py-8">
@@ -151,6 +157,7 @@ function App() {
               items={items}
               onToggleWeeklyShop={handleToggleWeeklyShop}
               onDeleteItem={handleDeleteItem}
+              onReorder={handleReorder}
             />
           </div>
           <div className="lg:sticky lg:top-8">
