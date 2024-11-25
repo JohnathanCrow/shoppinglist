@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { FileText, Image, X } from 'lucide-react';
+import { FileText, Image, X, Clipboard } from 'lucide-react';
 import { Item } from '../types';
 import html2canvas from 'html2canvas';
 
@@ -11,11 +11,14 @@ interface ExportListProps {
 export function ExportList({ items, onClose }: ExportListProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
-  const exportAsText = () => {
-    const text = items
+  const getFormattedList = () => {
+    return items
       .map((item) => item.quantity > 1 ? `${item.name} x${item.quantity}` : item.name)
       .join('\n');
-    
+  };
+
+  const exportAsText = () => {
+    const text = getFormattedList();
     const blob = new Blob([text], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -23,6 +26,12 @@ export function ExportList({ items, onClose }: ExportListProps) {
     a.download = 'shopping-list.txt';
     a.click();
     URL.revokeObjectURL(url);
+    onClose();
+  };
+
+  const copyToClipboard = async () => {
+    const text = getFormattedList();
+    await navigator.clipboard.writeText(text);
     onClose();
   };
 
@@ -52,7 +61,7 @@ export function ExportList({ items, onClose }: ExportListProps) {
         </div>
         
         <div ref={listRef} className="bg-gray-700 p-4 rounded-lg mb-4">
-
+          <h4 className="text-lg font-semibold mb-2">Shopping List</h4>
           {items.map((item) => (
             <div key={item.id} className="flex justify-between py-1">
               <span>{item.quantity > 1 ? `${item.name} x${item.quantity}` : item.name}</span>
@@ -62,18 +71,25 @@ export function ExportList({ items, onClose }: ExportListProps) {
 
         <div className="flex gap-4">
           <button
+            onClick={copyToClipboard}
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            <Clipboard className="w-4 h-4" />
+            Copy to Clipboard
+          </button>
+          <button
             onClick={exportAsText}
             className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <FileText className="w-4 h-4" />
-            Export as Text
+            Save as Text
           </button>
           <button
             onClick={exportAsImage}
             className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Image className="w-4 h-4" />
-            Export as Image
+            Save as Image
           </button>
         </div>
       </div>
