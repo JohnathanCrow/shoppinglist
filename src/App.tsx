@@ -53,6 +53,7 @@ function App() {
 
   const handleResetDatabase = () => {
     setItems([]);
+    setShowResetModal(false);
   };
 
   const handleBackupDatabase = () => {
@@ -112,30 +113,30 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center gap-3">
-            <ListPlus className="w-8 h-8 text-blue-400" />
-            <h1 className="text-3xl font-bold">Shopping List</h1>
+      <div className="container mx-auto px-3 py-6 max-w-[1400px]">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-2">
+            <ListPlus className="w-6 h-6 text-blue-400" />
+            <h1 className="text-2xl font-bold">Shopping List</h1>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-2">
             <button
               onClick={handleBackupDatabase}
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm"
             >
               <Download className="w-4 h-4" />
               Save
             </button>
             <button
               onClick={handleLoadBackup}
-              className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-sm"
             >
               <Upload className="w-4 h-4" />
               Load
             </button>
             <button
               onClick={() => setShowResetModal(true)}
-              className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
             >
               <XCircle className="w-4 h-4" />
               Reset
@@ -150,8 +151,8 @@ function App() {
           />
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
+        <div className="flex flex-col lg:flex-row gap-4">
+          <div className="w-full lg:min-w-0 lg:w-[calc(100%-340px)] space-y-4">
             <AddItemForm onAddItem={handleAddItem} />
             <ItemList
               items={items}
@@ -160,7 +161,7 @@ function App() {
               onReorder={handleReorder}
             />
           </div>
-          <div className="lg:sticky lg:top-8">
+          <div className="w-full lg:w-[320px] shrink-0">
             <WeeklyShop
               items={items}
               onToggleWeeklyShop={handleToggleWeeklyShop}
