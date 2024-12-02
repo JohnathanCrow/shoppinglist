@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ListPlus, Download, Upload, XCircle } from 'lucide-react';
+import { ListPlus, Download, Upload, X } from 'lucide-react';
 import { AddItemForm } from './components/AddItemForm';
 import { ItemList } from './components/ItemList';
 import { WeeklyShop } from './components/WeeklyShop';
@@ -43,6 +43,14 @@ function App() {
     setItems((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, quantity: Math.max(1, quantity) } : item
+      )
+    );
+  };
+
+  const handleUpdateNote = (id: string, note: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, note } : item
       )
     );
   };
@@ -100,6 +108,7 @@ function App() {
         ...item,
         inWeeklyShop: false,
         quantity: 1,
+        note: undefined,
       }))
     );
   };
@@ -113,64 +122,67 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <div className="container mx-auto px-3 py-6 max-w-[1400px]">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center gap-2">
-            <ListPlus className="w-6 h-6 text-blue-400" />
-            <h1 className="text-2xl font-bold">Shopping List</h1>
+      <div className="container mx-auto px-6 py-8 max-w-[1200px]">
+        <div className="flex flex-col lg:flex-row gap-8 justify-center">
+          <div className="w-full lg:w-[calc(50%-180px)]">
+            <div className="flex items-center justify-between mb-6">
+              <div className="flex items-center gap-3">
+                <ListPlus className="w-8 h-8 text-blue-600" />
+                <h1 className="text-3xl font-bold">Shopping List</h1>
+              </div>
+            </div>
+            <div className="space-y-6">
+              <AddItemForm onAddItem={handleAddItem} />
+              <ItemList
+                items={items}
+                onToggleWeeklyShop={handleToggleWeeklyShop}
+                onDeleteItem={handleDeleteItem}
+                onReorder={handleReorder}
+              />
+            </div>
           </div>
-          <div className="flex gap-2">
-            <button
-              onClick={handleBackupDatabase}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-sm"
-            >
-              <Download className="w-4 h-4" />
-              Save
-            </button>
-            <button
-              onClick={handleLoadBackup}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-sm"
-            >
-              <Upload className="w-4 h-4" />
-              Load
-            </button>
-            <button
-              onClick={() => setShowResetModal(true)}
-              className="flex items-center gap-1.5 px-3 py-1.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-sm"
-            >
-              <XCircle className="w-4 h-4" />
-              Reset
-            </button>
-          </div>
-          <input
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            accept=".json"
-            className="hidden"
-          />
-        </div>
-
-        <div className="flex flex-col lg:flex-row gap-4">
-          <div className="w-full lg:min-w-0 lg:w-[calc(100%-340px)] space-y-4">
-            <AddItemForm onAddItem={handleAddItem} />
-            <ItemList
-              items={items}
-              onToggleWeeklyShop={handleToggleWeeklyShop}
-              onDeleteItem={handleDeleteItem}
-              onReorder={handleReorder}
-            />
-          </div>
-          <div className="w-full lg:w-[320px] shrink-0">
+          <div className="w-full lg:w-[360px] shrink-0">
+            <div className="flex gap-2 mb-6">
+              <button
+                onClick={handleBackupDatabase}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-base"
+              >
+                <Download className="w-5 h-5" />
+                Save
+              </button>
+              <button
+                onClick={handleLoadBackup}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-base"
+              >
+                <Upload className="w-5 h-5" />
+                Load
+              </button>
+              <button
+                onClick={() => setShowResetModal(true)}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-base"
+              >
+                <X className="w-5 h-5" />
+                Reset
+              </button>
+            </div>
             <WeeklyShop
               items={items}
               onToggleWeeklyShop={handleToggleWeeklyShop}
               onUpdateQuantity={handleUpdateQuantity}
+              onUpdateNote={handleUpdateNote}
               onResetWeeklyShop={handleResetWeeklyShop}
             />
           </div>
         </div>
       </div>
+
+      <input
+        type="file"
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept=".json"
+        className="hidden"
+      />
 
       {showResetModal && (
         <ResetDatabase
