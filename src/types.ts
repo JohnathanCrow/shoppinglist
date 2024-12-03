@@ -3,6 +3,7 @@ export interface Item {
   name: string;
   inWeeklyShop: boolean;
   quantity: number;
+  note?: string;
   lastAdded?: string;
 }
 

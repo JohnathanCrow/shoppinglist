@@ -1,5 +1,5 @@
 import React from 'react';
-import { Check, Plus, Trash2, GripVertical } from 'lucide-react';
+import { Check, Plus, X, GripVertical } from 'lucide-react';
 import { Item } from '../types';
 import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 
@@ -23,7 +23,7 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder }:
           <div 
             {...provided.droppableProps} 
             ref={provided.innerRef}
-            className="space-y-1.5"
+            className="space-y-2"
           >
             {items.map((item, index) => (
               <Draggable key={item.id} draggableId={item.id} index={index}>
@@ -31,33 +31,33 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder }:
                   <div
                     ref={provided.innerRef}
                     {...provided.draggableProps}
-                    className="flex items-center justify-between p-2 rounded-lg bg-gray-900 hover:bg-gray-800 transition-colors"
+                    className="flex items-center justify-between p-3 rounded-lg bg-gray-800 hover:bg-gray-700 transition-colors"
                   >
-                    <div className="flex items-center space-x-2">
+                    <div className="flex items-center gap-3">
                       <div {...provided.dragHandleProps} className="text-gray-400 cursor-grab">
-                        <GripVertical className="w-4 h-4" />
+                        <GripVertical className="w-5 h-5" />
                       </div>
                       <button
                         onClick={() => onToggleWeeklyShop(item.id)}
-                        className={`p-1.5 rounded-full transition-colors ${
+                        className={`p-2 rounded-full transition-colors ${
                           item.inWeeklyShop
                             ? 'bg-emerald-500 hover:bg-emerald-600'
                             : 'bg-gray-700 hover:bg-gray-600'
                         }`}
                       >
                         {item.inWeeklyShop ? (
-                          <Check className="w-3.5 h-3.5 text-white" />
+                          <Check className="w-4 h-4 text-white" />
                         ) : (
-                          <Plus className="w-3.5 h-3.5 text-white" />
+                          <Plus className="w-4 h-4 text-white" />
                         )}
                       </button>
-                      <span className="text-gray-200 text-sm">{item.name}</span>
+                      <span className="text-gray-200 text-base">{item.name}</span>
                     </div>
                     <button
                       onClick={() => onDeleteItem(item.id)}
-                      className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
+                      className="p-2 text-gray-400 hover:text-red-400 transition-colors"
                     >
-                      <Trash2 className="w-3.5 h-3.5" />
+                      <X className="w-4 h-4" />
                     </button>
                   </div>
                 )}
