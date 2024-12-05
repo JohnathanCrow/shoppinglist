@@ -137,8 +137,10 @@ export function WeeklyShop({
                   key={item.id}
                   className="flex items-center justify-between p-3 rounded-lg bg-gray-700"
                 >
-                  <div className="flex items-center gap-3 flex-1">
+                  <div className="flex-1">
                     <span className="text-gray-200 text-base">{item.name}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
                     <button
                       onClick={() => setEditingNoteId(item.id)}
                       className={`p-1.5 rounded-lg transition-colors ${
@@ -146,22 +148,22 @@ export function WeeklyShop({
                       }`}
                       title="Add note"
                     >
-                      <MessageSquare className="w-5 h-5" />
+                      <MessageSquare className="w-4 h-4" />
                     </button>
                     <input
                       type="number"
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className="w-16 px-2 py-1 rounded bg-gray-600 text-white border border-gray-500 focus:outline-none focus:border-blue-500 text-base"
+                      className="w-12 px-2 py-1 rounded bg-gray-600 text-white border border-gray-500 focus:outline-none focus:border-blue-500 text-sm"
                     />
+                    <button
+                      onClick={() => onToggleWeeklyShop(item.id)}
+                      className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
                   </div>
-                  <button
-                    onClick={() => onToggleWeeklyShop(item.id)}
-                    className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
                 </div>
               ))}
             </div>

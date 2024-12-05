@@ -5,6 +5,7 @@ export interface Item {
   quantity: number;
   note?: string;
   lastAdded?: string;
+  type: 'item' | 'divider';
 }
 
 export interface ExportOptions {
