@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ListPlus, Download, Upload, X } from 'lucide-react';
+import { ListPlus, Download, Upload, X, Info } from 'lucide-react';
 import { AddItemForm } from './components/AddItemForm';
 import { ItemList } from './components/ItemList';
 import { WeeklyShop } from './components/WeeklyShop';
 import { ResetDatabase } from './components/ResetDatabase';
+import { InfoModal } from './components/InfoModal';
 import { Item } from './types';
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     return saved ? JSON.parse(saved) : [];
   });
   const [showResetModal, setShowResetModal] = useState(false);
+  const [showInfoModal, setShowInfoModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
@@ -19,16 +21,66 @@ function App() {
   }, [items]);
 
   const handleAddItem = (name: string) => {
-    setItems((prev) => [
-      ...prev,
-      {
-        id: crypto.randomUUID(),
-        name,
-        inWeeklyShop: false,
-        quantity: 1,
-        lastAdded: new Date().toISOString(),
-      },
-    ]);
+    const isDivider = name.startsWith('-');
+    const dividerName = isDivider ? name.slice(1).trim() : '';
+    
+    // Extract the base item name and section
+    const [itemName, sectionName] = name.split('-').map(s => s.trim());
+    
+    const newItem = {
+      id: crypto.randomUUID(),
+      name: isDivider ? dividerName : itemName,
+      inWeeklyShop: false,
+      quantity: 1,
+      lastAdded: new Date().toISOString(),
+      type: isDivider ? 'divider' : 'item' as const,
+    };
+
+    setItems((prev) => {
+      if (isDivider) {
+        return [...prev, newItem];
+      }
+
+      if (!sectionName) {
+        return [...prev, newItem];
+      }
+
+      // Find the appropriate section for the new item
+      const sections = prev.reduce<{ start: number; end: number; name: string }[]>(
+        (acc, item, index) => {
+          if (item.type === 'divider') {
+            if (acc.length > 0) {
+              acc[acc.length - 1].end = index;
+            }
+            acc.push({ start: index, end: prev.length, name: item.name });
+          }
+          return acc;
+        },
+        []
+      );
+
+      // Find the matching section
+      const matchingSection = sections.find(section => 
+        section.name.toLowerCase() === sectionName.toLowerCase()
+      );
+
+      if (!matchingSection) {
+        return [...prev, newItem];
+      }
+
+      // Insert the item at the end of its section
+      const newItems = [...prev];
+      newItems.splice(matchingSection.end, 0, newItem);
+      return newItems;
+    });
+  };
+
+  const handleEditItem = (id: string, name: string) => {
+    setItems((prev) =>
+      prev.map((item) =>
+        item.id === id ? { ...item, name } : item
+      )
+    );
   };
 
   const handleToggleWeeklyShop = (id: string) => {
@@ -129,6 +181,13 @@ function App() {
               <div className="flex items-center gap-3">
                 <ListPlus className="w-8 h-8 text-blue-600" />
                 <h1 className="text-3xl font-bold">Shopping List</h1>
+                <button
+                  onClick={() => setShowInfoModal(true)}
+                  className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+                  title="How to use"
+                >
+                  <Info className="w-6 h-6" />
+                </button>
               </div>
             </div>
             <div className="space-y-6">
@@ -138,6 +197,7 @@ function App() {
                 onToggleWeeklyShop={handleToggleWeeklyShop}
                 onDeleteItem={handleDeleteItem}
                 onReorder={handleReorder}
+                onEditItem={handleEditItem}
               />
             </div>
           </div>
@@ -166,7 +226,7 @@ function App() {
               </button>
             </div>
             <WeeklyShop
-              items={items}
+              items={items.filter(item => item.type === 'item')}
               onToggleWeeklyShop={handleToggleWeeklyShop}
               onUpdateQuantity={handleUpdateQuantity}
               onUpdateNote={handleUpdateNote}
@@ -189,6 +249,10 @@ function App() {
           onReset={handleResetDatabase}
           onClose={() => setShowResetModal(false)}
         />
+      )}
+
+      {showInfoModal && (
+        <InfoModal onClose={() => setShowInfoModal(false)} />
       )}
     </div>
   );
