@@ -11,3 +11,61 @@ body {
     @apply antialiased;
   }
 }
+
+:root.light-mode {
+  --bg-primary: 246 248 251;
+  --bg-secondary: 243 244 246;
+  --text-primary: 17 24 39;
+  --text-secondary: 55 65 81;
+}
+
+:root:not(.light-mode) {
+  --bg-primary: 17 24 39;
+  --bg-secondary: 31 41 55;
+  --text-primary: 249 250 251;
+  --text-secondary: 209 213 219;
+}
+
+.light-mode body {
+  @apply bg-blue-50;
+}
+
+.light-mode .bg-gray-900 {
+  @apply bg-blue-50;
+}
+
+.light-mode .bg-gray-800 {
+  @apply bg-white;
+}
+
+.light-mode .bg-gray-700 {
+  @apply bg-gray-100;
+}
+
+.light-mode .hover\:bg-gray-700:hover {
+  @apply hover:bg-blue-50;
+}
+
+.light-mode .text-white:not(button):not([class*="bg-"]) {
+  @apply text-gray-700;
+}
+
+.light-mode .text-gray-400:not(button) {
+  @apply text-gray-600;
+}
+
+.light-mode .text-gray-300 {
+  @apply text-gray-700;
+}
+
+.light-mode .text-gray-200 {
+  @apply text-gray-700;
+}
+
+.app-title {
+  font-family: 'Dancing Script', cursive;
+}
+
+.light-mode .app-title {
+  @apply text-gray-700;
+}
