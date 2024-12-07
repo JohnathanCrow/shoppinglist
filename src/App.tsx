@@ -5,6 +5,7 @@ import { ItemList } from './components/ItemList';
 import { WeeklyShop } from './components/WeeklyShop';
 import { ResetDatabase } from './components/ResetDatabase';
 import { InfoModal } from './components/InfoModal';
+import { ThemeToggle } from './components/ThemeToggle';
 import { Item } from './types';
 
 function App() {
@@ -45,14 +46,32 @@ function App() {
         return [...prev, newItem];
       }
 
+      // Check if section exists
+      const sectionExists = prev.some(
+        item => item.type === 'divider' && item.name.toLowerCase() === sectionName.toLowerCase()
+      );
+
+      // If section doesn't exist, create it first
+      const updatedItems = sectionExists ? prev : [
+        ...prev,
+        {
+          id: crypto.randomUUID(),
+          name: sectionName,
+          inWeeklyShop: false,
+          quantity: 1,
+          lastAdded: new Date().toISOString(),
+          type: 'divider' as const,
+        }
+      ];
+
       // Find the appropriate section for the new item
-      const sections = prev.reduce<{ start: number; end: number; name: string }[]>(
+      const sections = updatedItems.reduce<{ start: number; end: number; name: string }[]>(
         (acc, item, index) => {
           if (item.type === 'divider') {
             if (acc.length > 0) {
               acc[acc.length - 1].end = index;
             }
-            acc.push({ start: index, end: prev.length, name: item.name });
+            acc.push({ start: index, end: updatedItems.length, name: item.name });
           }
           return acc;
         },
@@ -65,13 +84,13 @@ function App() {
       );
 
       if (!matchingSection) {
-        return [...prev, newItem];
+        return [...updatedItems, newItem];
       }
 
       // Insert the item at the end of its section
-      const newItems = [...prev];
-      newItems.splice(matchingSection.end, 0, newItem);
-      return newItems;
+      const finalItems = [...updatedItems];
+      finalItems.splice(matchingSection.end, 0, newItem);
+      return finalItems;
     });
   };
 
@@ -175,18 +194,42 @@ function App() {
   return (
     <div className="min-h-screen bg-gray-900 text-white">
       <div className="container mx-auto px-6 py-8 max-w-[1200px]">
-        <div className="flex flex-col lg:flex-row gap-8 justify-center">
+        <div className="flex flex-col lg:flex-row gap-8">
           <div className="w-full lg:w-[calc(50%-180px)]">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <ListPlus className="w-8 h-8 text-blue-600" />
-                <h1 className="text-3xl font-bold">Shopping List</h1>
+                <h1 className="text-3xl font-bold app-title">Shopping List</h1>
                 <button
                   onClick={() => setShowInfoModal(true)}
                   className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
                   title="How to use"
                 >
                   <Info className="w-6 h-6" />
+                </button>
+                <ThemeToggle />
+              </div>
+              <div className="flex gap-2 lg:hidden">
+                <button
+                  onClick={handleBackupDatabase}
+                  className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                >
+                  <Download className="w-4 h-4" />
+                  Save
+                </button>
+                <button
+                  onClick={handleLoadBackup}
+                  className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+                >
+                  <Upload className="w-4 h-4" />
+                  Load
+                </button>
+                <button
+                  onClick={() => setShowResetModal(true)}
+                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                >
+                  <X className="w-4 h-4" />
+                  Reset
                 </button>
               </div>
             </div>
@@ -202,26 +245,26 @@ function App() {
             </div>
           </div>
           <div className="w-full lg:w-[360px] shrink-0">
-            <div className="flex gap-2 mb-6">
+            <div className="hidden lg:flex gap-2 mb-6">
               <button
                 onClick={handleBackupDatabase}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors text-base"
+                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
               >
-                <Download className="w-5 h-5" />
+                <Download className="w-4 h-4" />
                 Save
               </button>
               <button
                 onClick={handleLoadBackup}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors text-base"
+                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
               >
-                <Upload className="w-5 h-5" />
+                <Upload className="w-4 h-4" />
                 Load
               </button>
               <button
                 onClick={() => setShowResetModal(true)}
-                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors text-base"
+                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
                 Reset
               </button>
             </div>
