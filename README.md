@@ -6,7 +6,7 @@ A shopping list web app that you can run in docker.
 
 ## Installation
 ### Docker
-- ```docker pull ghcr.io/johnathancrow/shoppinglistcs```
+- ```docker pull ghcr.io/johnathancrow/shoppinglistcs``` - incoming
 
 ## Usage:
 ### Adding Items
