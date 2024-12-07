@@ -17,6 +17,15 @@ function App() {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+function generateUUID() {
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      const r = (Math.random() * 16) | 0;
+      const v = c === 'x' ? r : (r & 0x3) | 0x8;
+      return v.toString(16);
+  });
+}
+
+
   useEffect(() => {
     localStorage.setItem('shoppingItems', JSON.stringify(items));
   }, [items]);
@@ -29,7 +38,7 @@ function App() {
     const [itemName, sectionName] = name.split('-').map(s => s.trim());
     
     const newItem = {
-      id: crypto.randomUUID(),
+      id: generateUUID(),
       name: isDivider ? dividerName : itemName,
       inWeeklyShop: false,
       quantity: 1,
@@ -55,7 +64,7 @@ function App() {
       const updatedItems = sectionExists ? prev : [
         ...prev,
         {
-          id: crypto.randomUUID(),
+          id: generateUUID(),
           name: sectionName,
           inWeeklyShop: false,
           quantity: 1,

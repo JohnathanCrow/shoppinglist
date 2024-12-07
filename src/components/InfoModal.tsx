@@ -21,16 +21,16 @@ export function InfoModal({ onClose }: InfoModalProps) {
         
         <div className="space-y-4 text-gray-300">
           <section>
-            <h4 className="font-semibold text-white mb-2">Adding Items</h4>
+            <h4 className="font-semibold text-white mb-2">Adding Database Items</h4>
             <ul className="list-disc list-inside space-y-1">
               <li>Type an item name and click Add or press Enter</li>
               <li>To add an item to a section, type "item-section" (e.g., "Bread-Baked")</li>
               <li>To create a section divider, type "- Section Name" (e.g., "- Frozen")</li>
             </ul>
           </section>
-
+          
           <section>
-            <h4 className="font-semibold text-white mb-2">Managing Items</h4>
+            <h4 className="font-semibold text-white mb-2">Managing Database Items</h4>
             <ul className="list-disc list-inside space-y-1">
               <li>Click + to add an item to your weekly shop</li>
               <li>Drag items to reorder them</li>
@@ -38,9 +38,9 @@ export function InfoModal({ onClose }: InfoModalProps) {
               <li>Click X to remove an item</li>
             </ul>
           </section>
-
+          
           <section>
-            <h4 className="font-semibold text-white mb-2">Weekly Shop List</h4>
+            <h4 className="font-semibold text-white mb-2">Managing Shopping List Items</h4>
             <ul className="list-disc list-inside space-y-1">
               <li>Adjust quantities using the number input</li>
               <li>Add notes to items using the message icon</li>
@@ -48,9 +48,9 @@ export function InfoModal({ onClose }: InfoModalProps) {
               <li>Reset the weekly shop to clear all selections</li>
             </ul>
           </section>
-
+          
           <section>
-            <h4 className="font-semibold text-white mb-2">Database Management</h4>
+            <h4 className="font-semibold text-white mb-2">Other Controls</h4>
             <ul className="list-disc list-inside space-y-1">
               <li>Save: Download a backup of your database</li>
               <li>Load: Restore from a previous backup</li>
