@@ -12,8 +12,8 @@ docker pull ghcr.io/johnathancrow/shoppinglist
 ## Usage
 #### Adding Database Items
 - Type an item name and click Add or press Enter
-- To add an item to a section, type "item-section" (e.g., "Bread-Baked")
-- To create a section divider, type "- Section Name" (e.g., "- Frozen")
+- To add an item to a section, type "item -section" (e.g., "Bread -Baked")
+- To create a section divider, type "- Section Name" (e.g., "-Frozen")
 #### Managing Database Items
 - Click + to add an item to your weekly shop
 - Drag items to reorder them
