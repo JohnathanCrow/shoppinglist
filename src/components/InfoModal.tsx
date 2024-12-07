@@ -21,42 +21,40 @@ export function InfoModal({ onClose }: InfoModalProps) {
         
         <div className="space-y-4 text-gray-300">
           <section>
-            <h4 className="font-semibold text-white mb-2">General</h4>
-            <ul className="list-disc list-inside space-y-1">
-              <p>Welcome! This shopping list web app saves its data to your device via your browser. Remember to back up your shopping list if you are clearing browser data or switching to a new browser.</p>
-            </ul>
-          </section>
-          
-          <section>
-            <h4 className="font-semibold text-white mb-2">Database</h4>
+            <h4 className="font-semibold text-white mb-2">Adding Items</h4>
             <ul className="list-disc list-inside space-y-1">
               <li>Type an item name and click Add or press Enter</li>
-              <li>Prepend a dash to create a divider (e.g., "-Fruit")</li>
-              <li>Append a divider input after an item to automatically place the item (e.g., "Bread -Baked")</li>
-              <li>Drag the left edge of items to reorder them</li>
-              <li>Click the pencil icon to edit an item</li>
-              <li>Click the x icon to remove an item</li>
+              <li>To add an item to a section, type "item-section" (e.g., "Bread-Baked")</li>
+              <li>To create a section divider, type "- Section Name" (e.g., "- Frozen")</li>
+            </ul>
+          </section>
+
+          <section>
+            <h4 className="font-semibold text-white mb-2">Managing Items</h4>
+            <ul className="list-disc list-inside space-y-1">
               <li>Click + to add an item to your weekly shop</li>
+              <li>Drag items to reorder them</li>
+              <li>Click the pencil icon to edit an item</li>
+              <li>Click X to remove an item</li>
             </ul>
           </section>
 
           <section>
-            <h4 className="font-semibold text-white mb-2">List</h4>
+            <h4 className="font-semibold text-white mb-2">Weekly Shop List</h4>
             <ul className="list-disc list-inside space-y-1">
+              <li>Adjust quantities using the number input</li>
               <li>Add notes to items using the message icon</li>
-              <li>Adjust quantities using the number field</li>
-              <li>Click the x icon to remove an item</li>
-              <li>Export your list using the clipboard, text, or image icons at the top</li>
-              <li>Reset the weekly shop using the bin icon at the top</li>
+              <li>Export your list using the clipboard, text, or image options</li>
+              <li>Reset the weekly shop to clear all selections</li>
             </ul>
           </section>
 
           <section>
-            <h4 className="font-semibold text-white mb-2">Other</h4>
+            <h4 className="font-semibold text-white mb-2">Database Management</h4>
             <ul className="list-disc list-inside space-y-1">
-              <li>Save (green): Download a backup of your database as a .json file</li>
-              <li>Load (Amber): Restore a previous backup of your database from a .json file</li>
-              <li>Reset (Red): Remove all database and list entries (irreversable!)</li>
+              <li>Save: Download a backup of your database</li>
+              <li>Load: Restore from a previous backup</li>
+              <li>Reset: Clear all items (use with caution!)</li>
             </ul>
           </section>
         </div>
