@@ -32,4 +32,4 @@ jobs:
 
     # Step 4: Push the Docker image to ghcr.io
     - name: Push the Docker image
-      run: docker push ghcr.io/johnathancrow/shoppinglist/shopping-list:latest
+      run: docker push ghcr.io/johnathancrow/shoppinglist:latest
