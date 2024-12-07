@@ -25,7 +25,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag ghcr.io/johnathancrow/shoppinglist:latest
+        run: docker build . -t ghcr.io/johnathancrow/shoppinglist:latest
 
       - name: Push the Docker image
         run: docker push ghcr.io/johnathancrow/shoppinglist:latest
