@@ -1,4 +1,4 @@
-# shoppinglist
+# shoppinglist - WIP
 
 ![screenshot](https://github.com/user-attachments/assets/5ac64a38-e2a5-4e97-b51b-f2e4f325ee19)
 
