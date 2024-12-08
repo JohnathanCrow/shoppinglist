@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
-import { ListPlus, X, FileText, Image, Clipboard, Trash2, MessageSquare } from 'lucide-react';
-import { Item } from '../types';
-import { NoteModal } from './NoteModal';
-import html2canvas from 'html2canvas';
+import React, { useState } from "react";
+import {
+  ListPlus,
+  X,
+  FileText,
+  Image,
+  Clipboard,
+  Trash2,
+  MessageSquare,
+} from "lucide-react";
+import { Item } from "../types";
+import { NoteModal } from "./NoteModal";
+import html2canvas from "html2canvas";
 
 interface WeeklyShopProps {
   items: Item[];
@@ -12,12 +20,12 @@ interface WeeklyShopProps {
   onResetWeeklyShop: () => void;
 }
 
-export function WeeklyShop({ 
-  items, 
-  onToggleWeeklyShop, 
+export function WeeklyShop({
+  items,
+  onToggleWeeklyShop,
   onUpdateQuantity,
   onUpdateNote,
-  onResetWeeklyShop 
+  onResetWeeklyShop,
 }: WeeklyShopProps) {
   const weeklyItems = items.filter((item) => item.inWeeklyShop);
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
@@ -34,7 +42,7 @@ export function WeeklyShop({
   };
 
   const getFormattedList = () => {
-    return weeklyItems.map(getFormattedItemText).join('\n');
+    return weeklyItems.map(getFormattedItemText).join("\n");
   };
 
   const handleCopyToClipboard = async () => {
@@ -44,43 +52,43 @@ export function WeeklyShop({
 
   const handleExportText = () => {
     const text = getFormattedList();
-    const blob = new Blob([text], { type: 'text/plain' });
+    const blob = new Blob([text], { type: "text/plain" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = 'shopping-list.txt';
+    a.download = "shopping-list.txt";
     a.click();
     URL.revokeObjectURL(url);
   };
 
   const handleExportImage = async () => {
-    const element = document.getElementById('weekly-shop-export');
+    const element = document.getElementById("weekly-shop-export");
     if (!element) return;
 
-    element.style.position = 'fixed';
-    element.style.left = '-9999px';
-    element.style.top = '0';
-    element.style.display = 'block';
-    
+    element.style.position = "fixed";
+    element.style.left = "-9999px";
+    element.style.top = "0";
+    element.style.display = "block";
+
     try {
       const canvas = await html2canvas(element, {
-        backgroundColor: '#1a1b1e',
+        backgroundColor: "#1a1b1e",
         scale: 2,
         logging: false,
         useCORS: true,
-        allowTaint: true
+        allowTaint: true,
       });
-      
-      const url = canvas.toDataURL('image/png');
-      const a = document.createElement('a');
+
+      const url = canvas.toDataURL("image/png");
+      const a = document.createElement("a");
       a.href = url;
-      a.download = 'shopping-list.png';
+      a.download = "shopping-list.png";
       a.click();
     } catch (error) {
-      console.error('Error generating image:', error);
+      console.error("Error generating image:", error);
     } finally {
-      element.style.display = 'none';
-      element.style.position = 'static';
+      element.style.display = "none";
+      element.style.position = "static";
     }
   };
 
@@ -129,7 +137,9 @@ export function WeeklyShop({
 
         <div className="space-y-2">
           {weeklyItems.length === 0 ? (
-            <p className="text-gray-400 text-base">Add items to your weekly shop</p>
+            <p className="text-gray-400 text-base">
+              Add items to your weekly shop
+            </p>
           ) : (
             <div className="space-y-2">
               {weeklyItems.map((item) => (
@@ -144,7 +154,9 @@ export function WeeklyShop({
                     <button
                       onClick={() => setEditingNoteId(item.id)}
                       className={`p-1.5 rounded-lg transition-colors ${
-                        item.note ? 'text-blue-600 hover:text-blue-500' : 'text-gray-400 hover:text-gray-300'
+                        item.note
+                          ? "text-blue-600 hover:text-blue-500"
+                          : "text-gray-400 hover:text-gray-300"
                       }`}
                       title="Add note to item"
                     >
@@ -155,7 +167,7 @@ export function WeeklyShop({
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className="w-12 px-2 py-1 rounded bg-gray-600 text-white border border-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                      className="w-12 px-2 py-1 rounded text-gray-800 dark:text-white border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/70"
                       title="Change quantity"
                     />
                     <button
@@ -174,11 +186,28 @@ export function WeeklyShop({
 
         {/* Hidden element for image export */}
         <div id="weekly-shop-export" className="hidden">
-          <div style={{ width: '300px', padding: '20px', backgroundColor: '#1a1b1e', color: '#e5e7eb' }}>
-            <h2 style={{ fontSize: '22px', marginBottom: '20px', color: '#d1d5db' }}>Shopping List</h2>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <div
+            style={{
+              width: "300px",
+              padding: "20px",
+              backgroundColor: "#1a1b1e",
+              color: "#e5e7eb",
+            }}
+          >
+            <h2
+              style={{
+                fontSize: "22px",
+                marginBottom: "20px",
+                color: "#d1d5db",
+              }}
+            >
+              Shopping List
+            </h2>
+            <div
+              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
+            >
               {weeklyItems.map((item) => (
-                <div key={item.id} style={{ fontSize: '18px' }}>
+                <div key={item.id} style={{ fontSize: "18px" }}>
                   {getFormattedItemText(item)}
                 </div>
               ))}
@@ -189,7 +218,7 @@ export function WeeklyShop({
 
       {editingNoteId && (
         <NoteModal
-          item={weeklyItems.find(item => item.id === editingNoteId)!}
+          item={weeklyItems.find((item) => item.id === editingNoteId)!}
           onSave={(note) => {
             onUpdateNote(editingNoteId, note);
             setEditingNoteId(null);
