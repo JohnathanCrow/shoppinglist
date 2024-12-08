@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ListPlus, Download, Upload, X, Info } from 'lucide-react';
+import { ShoppingCart, Download, Upload, X, Info } from 'lucide-react';
 import { AddItemForm } from './components/AddItemForm';
 import { ItemList } from './components/ItemList';
 import { WeeklyShop } from './components/WeeklyShop';
@@ -17,15 +17,6 @@ function App() {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-function generateUUID() {
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
-      const r = (Math.random() * 16) | 0;
-      const v = c === 'x' ? r : (r & 0x3) | 0x8;
-      return v.toString(16);
-  });
-}
-
-
   useEffect(() => {
     localStorage.setItem('shoppingItems', JSON.stringify(items));
   }, [items]);
@@ -34,11 +25,10 @@ function generateUUID() {
     const isDivider = name.startsWith('-');
     const dividerName = isDivider ? name.slice(1).trim() : '';
     
-    // Extract the base item name and section
     const [itemName, sectionName] = name.split('-').map(s => s.trim());
     
     const newItem = {
-      id: generateUUID(),
+      id: crypto.randomUUID(),
       name: isDivider ? dividerName : itemName,
       inWeeklyShop: false,
       quantity: 1,
@@ -55,16 +45,14 @@ function generateUUID() {
         return [...prev, newItem];
       }
 
-      // Check if section exists
       const sectionExists = prev.some(
         item => item.type === 'divider' && item.name.toLowerCase() === sectionName.toLowerCase()
       );
 
-      // If section doesn't exist, create it first
       const updatedItems = sectionExists ? prev : [
         ...prev,
         {
-          id: generateUUID(),
+          id: crypto.randomUUID(),
           name: sectionName,
           inWeeklyShop: false,
           quantity: 1,
@@ -73,7 +61,6 @@ function generateUUID() {
         }
       ];
 
-      // Find the appropriate section for the new item
       const sections = updatedItems.reduce<{ start: number; end: number; name: string }[]>(
         (acc, item, index) => {
           if (item.type === 'divider') {
@@ -87,7 +74,6 @@ function generateUUID() {
         []
       );
 
-      // Find the matching section
       const matchingSection = sections.find(section => 
         section.name.toLowerCase() === sectionName.toLowerCase()
       );
@@ -96,7 +82,6 @@ function generateUUID() {
         return [...updatedItems, newItem];
       }
 
-      // Insert the item at the end of its section
       const finalItems = [...updatedItems];
       finalItems.splice(matchingSection.end, 0, newItem);
       return finalItems;
@@ -202,17 +187,17 @@ function generateUUID() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white">
-      <div className="container mx-auto px-6 py-8 max-w-[1200px]">
-        <div className="flex flex-col lg:flex-row gap-8">
+      <div className="container mx-auto px-4 py-8 max-w-[1200px]">
+        <div className="flex flex-col lg:flex-row gap-8 justify-center">
           <div className="w-full lg:w-[calc(50%-180px)]">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <ListPlus className="w-8 h-8 text-blue-600" />
+                <ShoppingCart className="w-8 h-8 text-blue-600" />
                 <h1 className="text-3xl font-bold app-title">Shopping List</h1>
                 <button
                   onClick={() => setShowInfoModal(true)}
                   className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                  title="How to use"
+                  title="Learn how to use the app"
                 >
                   <Info className="w-6 h-6" />
                 </button>
@@ -222,6 +207,7 @@ function generateUUID() {
                 <button
                   onClick={handleBackupDatabase}
                   className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                  title="Save your list to a file"
                 >
                   <Download className="w-4 h-4" />
                   Save
@@ -229,6 +215,7 @@ function generateUUID() {
                 <button
                   onClick={handleLoadBackup}
                   className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+                  title="Load a previously saved list"
                 >
                   <Upload className="w-4 h-4" />
                   Load
@@ -236,6 +223,7 @@ function generateUUID() {
                 <button
                   onClick={() => setShowResetModal(true)}
                   className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  title="Clear all items from the list"
                 >
                   <X className="w-4 h-4" />
                   Reset
@@ -258,6 +246,7 @@ function generateUUID() {
               <button
                 onClick={handleBackupDatabase}
                 className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                title="Save your list to a file"
               >
                 <Download className="w-4 h-4" />
                 Save
@@ -265,6 +254,7 @@ function generateUUID() {
               <button
                 onClick={handleLoadBackup}
                 className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+                title="Load a previously saved list"
               >
                 <Upload className="w-4 h-4" />
                 Load
@@ -272,6 +262,7 @@ function generateUUID() {
               <button
                 onClick={() => setShowResetModal(true)}
                 className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                title="Clear all items from the list"
               >
                 <X className="w-4 h-4" />
                 Reset
