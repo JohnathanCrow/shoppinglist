@@ -167,7 +167,7 @@ export function WeeklyShop({
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className=""w-12 px-2 py-1 rounded text-gray-400 dark:text-black border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
+                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-black border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
                       title="Change quantity"
                     />
                     <button
