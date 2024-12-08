@@ -1,5 +1,5 @@
-import React from 'react';
-import { AlertTriangle } from 'lucide-react';
+import React from "react";
+import { AlertTriangle } from "lucide-react";
 
 interface ResetDatabaseProps {
   onReset: () => void;
@@ -14,15 +14,16 @@ export function ResetDatabase({ onReset, onClose }: ResetDatabaseProps) {
           <AlertTriangle className="w-6 h-6" />
           <h3 className="text-xl font-semibold">Reset Database</h3>
         </div>
-        
+
         <p className="text-gray-300 mb-6">
-          This will permanently delete all items from your database. This action cannot be undone.
+          This will permanently delete all items from your database. This action
+          cannot be undone.
         </p>
 
         <div className="flex gap-4">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+            className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
           >
             Cancel
           </button>

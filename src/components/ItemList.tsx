@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { Check, Plus, X, GripVertical, Pencil } from 'lucide-react';
-import { Item } from '../types';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
-import { EditItemModal } from './EditItemModal';
+import React, { useState } from "react";
+import { Check, Plus, X, GripVertical, Pencil } from "lucide-react";
+import { Item } from "../types";
+import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { EditItemModal } from "./EditItemModal";
 
 interface ItemListProps {
   items: Item[];
@@ -12,7 +12,13 @@ interface ItemListProps {
   onEditItem: (id: string, name: string) => void;
 }
 
-export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, onEditItem }: ItemListProps) {
+export function ItemList({
+  items,
+  onToggleWeeklyShop,
+  onDeleteItem,
+  onReorder,
+  onEditItem,
+}: ItemListProps) {
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
   const handleDragEnd = (result: any) => {
@@ -25,8 +31,8 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="items">
           {(provided) => (
-            <div 
-              {...provided.droppableProps} 
+            <div
+              {...provided.droppableProps}
               ref={provided.innerRef}
               className="space-y-2"
             >
@@ -37,22 +43,31 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
                       ref={provided.innerRef}
                       {...provided.draggableProps}
                       className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
-                        item.type === 'divider' ? '' : 'bg-gray-800 hover:bg-gray-700'
+                        item.type === "divider"
+                          ? ""
+                          : "bg-gray-800 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
                       }`}
                     >
                       <div className="flex items-center gap-3 flex-1">
-                        <div {...provided.dragHandleProps} className="text-gray-400 cursor-grab">
+                        <div
+                          {...provided.dragHandleProps}
+                          className="text-gray-400 cursor-grab"
+                        >
                           <GripVertical className="w-5 h-5" />
                         </div>
-                        {item.type === 'item' && (
+                        {item.type === "item" && (
                           <button
                             onClick={() => onToggleWeeklyShop(item.id)}
                             className={`p-2 rounded-full transition-colors ${
                               item.inWeeklyShop
-                                ? 'bg-emerald-500 hover:bg-emerald-600'
-                                : 'bg-gray-700 hover:bg-gray-600'
+                                ? "bg-emerald-500 hover:bg-emerald-600"
+                                : "bg-gray-700 hover:bg-gray-600"
                             }`}
-                            title={item.inWeeklyShop ? "Remove from shopping list" : "Add to shopping list"}
+                            title={
+                              item.inWeeklyShop
+                                ? "Remove from shopping list"
+                                : "Add to shopping list"
+                            }
                           >
                             {item.inWeeklyShop ? (
                               <Check className="w-4 h-4 text-white" />
@@ -61,13 +76,13 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
                             )}
                           </button>
                         )}
-                        {item.type === 'divider' && (
+                        {item.type === "divider" && (
                           <span className="font-bold text-gray-400 text-base">
                             {item.name}
                           </span>
                         )}
-                        {item.type === 'item' && (
-                          <span className="text-gray-200 text-base">
+                        {item.type === "item" && (
+                          <span className="text-gray-800 dark:text-gray-200 text-base">
                             {item.name}
                           </span>
                         )}
@@ -100,7 +115,7 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
 
       {editingItemId && (
         <EditItemModal
-          item={items.find(item => item.id === editingItemId)!}
+          item={items.find((item) => item.id === editingItemId)!}
           onSave={(name) => {
             onEditItem(editingItemId, name);
             setEditingItemId(null);
