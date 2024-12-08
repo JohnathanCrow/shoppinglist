@@ -45,7 +45,7 @@ export function ItemList({
                       className={`flex items-center justify-between p-3 rounded-lg transition-colors ${
                         item.type === "divider"
                           ? ""
-                          : "bg-gray-800 dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700"
+                          : "bg-gray-800 dark:bg-gray-800 hover:bg-gray-400/20 dark:hover:bg-gray-200"
                       }`}
                     >
                       <div className="flex items-center gap-3 flex-1">
@@ -82,7 +82,7 @@ export function ItemList({
                           </span>
                         )}
                         {item.type === "item" && (
-                          <span className="text-gray-800 dark:text-gray-200 text-base">
+                          <span className="text-gray-200 dark:text-gray-200 text-base">
                             {item.name}
                           </span>
                         )}
