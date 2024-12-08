@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShoppingCart, X, FileText, Image, Clipboard, Trash2, MessageSquare } from 'lucide-react';
+import { ListPlus, X, FileText, Image, Clipboard, Trash2, MessageSquare } from 'lucide-react';
 import { Item } from '../types';
 import { NoteModal } from './NoteModal';
 import html2canvas from 'html2canvas';
@@ -89,7 +89,7 @@ export function WeeklyShop({
       <div className="bg-gray-800 rounded-lg p-5 sticky top-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
-            <ShoppingCart className="w-6 h-6 text-blue-600" />
+            <ListPlus className="w-6 h-6 text-blue-600" />
             <h2 className="text-xl font-semibold text-white">List</h2>
             <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm">
               {weeklyItems.length}
@@ -99,28 +99,28 @@ export function WeeklyShop({
             <button
               onClick={handleCopyToClipboard}
               className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-              title="Copy to clipboard"
+              title="Copy list to clipboard"
             >
               <Clipboard className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportText}
               className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-              title="Save as text"
+              title="Save list as text file"
             >
               <FileText className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportImage}
               className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-              title="Save as image"
+              title="Save list as image"
             >
               <Image className="w-5 h-5" />
             </button>
             <button
               onClick={onResetWeeklyShop}
               className="p-2 text-gray-400 hover:text-red-400 transition-colors"
-              title="Reset weekly shop"
+              title="Clear shopping list"
             >
               <Trash2 className="w-5 h-5" />
             </button>
@@ -146,7 +146,7 @@ export function WeeklyShop({
                       className={`p-1.5 rounded-lg transition-colors ${
                         item.note ? 'text-blue-600 hover:text-blue-500' : 'text-gray-400 hover:text-gray-300'
                       }`}
-                      title="Add note"
+                      title="Add note to item"
                     >
                       <MessageSquare className="w-4 h-4" />
                     </button>
@@ -156,10 +156,12 @@ export function WeeklyShop({
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
                       className="w-12 px-2 py-1 rounded bg-gray-600 text-white border border-gray-500 focus:outline-none focus:border-blue-500 text-sm"
+                      title="Change quantity"
                     />
                     <button
                       onClick={() => onToggleWeeklyShop(item.id)}
                       className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
+                      title="Remove from list"
                     >
                       <X className="w-4 h-4" />
                     </button>

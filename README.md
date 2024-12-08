@@ -30,4 +30,4 @@ docker run -d --name shopping-list -p 3200:80 --restart unless-stopped ghcr.io/j
 - Load: Load a backup of your database
 - Reset: Reset all items in your database (caution!)
 
-This usage guide can be found in the info icon beside the app header, alongside a light/dark mode toggle
+This usage guide can be found in the info icon beside the app header, alongside a light/dark mode toggle.

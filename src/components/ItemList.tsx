@@ -52,6 +52,7 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
                                 ? 'bg-emerald-500 hover:bg-emerald-600'
                                 : 'bg-gray-700 hover:bg-gray-600'
                             }`}
+                            title={item.inWeeklyShop ? "Remove from shopping list" : "Add to shopping list"}
                           >
                             {item.inWeeklyShop ? (
                               <Check className="w-4 h-4 text-white" />
@@ -61,14 +62,9 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
                           </button>
                         )}
                         {item.type === 'divider' && (
-                          <>
-                            {item.name && (
-                              <span className="font-bold text-gray-400 text-base">
-                                {item.name}
-                              </span>
-                            )}
-                            <div className="h-[1px] bg-gray-600 flex-1" />
-                          </>
+                          <span className="font-bold text-gray-400 text-base">
+                            {item.name}
+                          </span>
                         )}
                         {item.type === 'item' && (
                           <span className="text-gray-200 text-base">
@@ -80,12 +76,14 @@ export function ItemList({ items, onToggleWeeklyShop, onDeleteItem, onReorder, o
                         <button
                           onClick={() => setEditingItemId(item.id)}
                           className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+                          title="Edit item"
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onDeleteItem(item.id)}
                           className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+                          title="Delete item"
                         >
                           <X className="w-4 h-4" />
                         </button>
