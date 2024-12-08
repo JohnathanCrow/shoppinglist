@@ -6,7 +6,7 @@ A shopping list web app that you can self-host with docker. Data is saved locall
 ## Installation
 #### Docker
 ```
-docker pull ghcr.io/johnathancrow/shoppinglist
+docker run -d --name shopping-list -p 3200:80 --restart unless-stopped ghcr.io/johnathancrow/shoppinglist:latest
 ```
 
 ## Usage
