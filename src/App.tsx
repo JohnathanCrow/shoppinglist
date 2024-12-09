@@ -157,8 +157,8 @@ function App() {
           setItems(parsedData);
         }
       } catch (error) {
-        console.error('Error loading backup:', error);
-        alert('Invalid backup file');
+        console.error('Error Loading Backup:', error);
+        alert('Invalid Backup');
       }
     };
     reader.readAsText(file);
@@ -197,7 +197,7 @@ function App() {
                 <button
                   onClick={() => setShowInfoModal(true)}
                   className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                  title="Learn how to use the app"
+                  title="How to Use"
                 >
                   <Info className="w-6 h-6" />
                 </button>
@@ -207,23 +207,23 @@ function App() {
                 <button
                   onClick={handleBackupDatabase}
                   className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
-                  title="Save your list to a file"
+                  title="Export Database"
                 >
                   <Download className="w-4 h-4" />
-                  Save
+                  Export
                 </button>
                 <button
                   onClick={handleLoadBackup}
                   className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
-                  title="Load a previously saved list"
+                  title="Import Database"
                 >
                   <Upload className="w-4 h-4" />
-                  Load
+                  Import
                 </button>
                 <button
                   onClick={() => setShowResetModal(true)}
                   className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                  title="Clear all items from the list"
+                  title="Reset Database"
                 >
                   <X className="w-4 h-4" />
                   Reset
@@ -246,23 +246,23 @@ function App() {
               <button
                 onClick={handleBackupDatabase}
                 className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
-                title="Save your list to a file"
+                title="Export Database"
               >
                 <Download className="w-4 h-4" />
-                Save
+                Export
               </button>
               <button
                 onClick={handleLoadBackup}
                 className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
-                title="Load a previously saved list"
+                title="Import Database"
               >
                 <Upload className="w-4 h-4" />
-                Load
+                Import
               </button>
               <button
                 onClick={() => setShowResetModal(true)}
                 className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
-                title="Clear all items from the list"
+                title="Reset Database"
               >
                 <X className="w-4 h-4" />
                 Reset

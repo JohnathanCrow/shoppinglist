@@ -8,7 +8,7 @@ interface InfoModalProps {
 export function InfoModal({ onClose }: InfoModalProps) {
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-gray-800 rounded-lg p-6 w-full max-w-2xl">
+      <div className="bg-gray-800 rounded-lg p-5 w-full max-w-2xl">
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-semibold text-white">Usage</h3>
           <button
@@ -24,7 +24,7 @@ export function InfoModal({ onClose }: InfoModalProps) {
             <h4 className="font-semibold text-white mb-2">
               Adding Database Items
             </h4>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-0">
               <li>
                 Type an item name and click Add or press Enter (e.g., "Apple")
               </li>
@@ -40,7 +40,7 @@ export function InfoModal({ onClose }: InfoModalProps) {
             <h4 className="font-semibold text-white mb-2">
               Managing Database Items
             </h4>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-0">
               <li>Drag the left edge of an item to reorder</li>
               <li>Click the + icon to add it to your list</li>
               <li>Click the pencil icon to edit the item</li>
@@ -52,20 +52,20 @@ export function InfoModal({ onClose }: InfoModalProps) {
             <h4 className="font-semibold text-white mb-2">
               Managing List Items
             </h4>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-0">
               <li>Add notes to items using the message icon</li>
               <li>Adjust quantities using the number input</li>
               <li>Remove items by using the x icon</li>
               <li>
                 Export your list using the clipboard, text, or image options
               </li>
-              <li>Reset the list to clear all selections</li>
+              <li>Reset the list using the upper right x icon</li>
             </ul>
           </section>
 
           <section>
             <h4 className="font-semibold text-white mb-2">Controls</h4>
-            <ul className="list-disc list-inside space-y-1">
+            <ul className="list-disc list-inside space-y-0">
               <li>Save: Save a backup of your database</li>
               <li>Load: Load a backup of your database</li>
               <li>Reset: Reset all items in your database (caution!)</li>

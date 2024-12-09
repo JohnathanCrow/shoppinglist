@@ -110,28 +110,28 @@ export function WeeklyShop({
             <button
               onClick={handleCopyToClipboard}
               className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-              title="Copy list to clipboard"
+              title="Copy to Clipboard"
             >
               <Clipboard className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportText}
               className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-              title="Save list as text file"
+              title="Save as Text File"
             >
               <FileText className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportImage}
               className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-              title="Save list as image"
+              title="Save as Image File"
             >
               <Image className="w-5 h-5" />
             </button>
             <button
               onClick={onResetWeeklyShop}
               className="p-2 text-gray-400 hover:text-red-400 transition-colors"
-              title="Clear shopping list"
+              title="Clear List"
             >
               <Trash2 className="w-5 h-5" />
             </button>
@@ -158,10 +158,10 @@ export function WeeklyShop({
                       onClick={() => setEditingNoteId(item.id)}
                       className={`p-1.5 rounded-lg transition-colors ${
                         item.note
-                          ? "text-blue-600 hover:text-blue-500"
+                          ? "text-yellow-600 hover:text-yellow-300"
                           : "text-gray-400 hover:text-gray-300"
                       }`}
-                      title="Add note to item"
+                      title="Add/Edit Note"
                     >
                       <MessageSquare className="w-4 h-4" />
                     </button>
@@ -170,13 +170,13 @@ export function WeeklyShop({
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-black border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
-                      title="Change quantity"
+                      className="w-12 px-2 py-1 rounded text-gray-500 dark:text-white border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
+                      title="Change Quantity"
                     />
                     <button
                       onClick={() => onToggleWeeklyShop(item.id)}
                       className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
-                      title="Remove from list"
+                      title="Remove Item"
                     >
                       <X className="w-4 h-4" />
                     </button>
