@@ -7,10 +7,12 @@ import {
   Clipboard,
   Trash2,
   MessageSquare,
+  ShoppingCart,
 } from "lucide-react";
 import { Item } from "../types";
 import { NoteModal } from "./NoteModal";
 import html2canvas from "html2canvas";
+import { useTheme } from "../contexts/ThemeContext";
 
 interface WeeklyShopProps {
   items: Item[];
@@ -29,6 +31,7 @@ export function WeeklyShop({
 }: WeeklyShopProps) {
   const weeklyItems = items.filter((item) => item.inWeeklyShop);
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
+  const { theme } = useTheme();
 
   const getFormattedItemText = (item: Item) => {
     let text = item.name;
@@ -72,7 +75,7 @@ export function WeeklyShop({
 
     try {
       const canvas = await html2canvas(element, {
-        backgroundColor: "#1a1b1e",
+        backgroundColor: theme === 'light' ? "#f0f4f8" : "#1a1b1e",
         scale: 2,
         logging: false,
         useCORS: true,
@@ -141,11 +144,11 @@ export function WeeklyShop({
               Add items to your weekly shop
             </p>
           ) : (
-            <div className="space-y-2">
+            <div className="space-y-0 bg-gray-700 rounded-lg">
               {weeklyItems.map((item) => (
                 <div
                   key={item.id}
-                  className="flex items-center justify-between p-3 rounded-lg bg-gray-700"
+                  className="flex items-center justify-between p-3 rounded-lg"
                 >
                   <div className="flex-1">
                     <span className="text-gray-200 text-base">{item.name}</span>
@@ -190,24 +193,53 @@ export function WeeklyShop({
             style={{
               width: "300px",
               padding: "20px",
-              backgroundColor: "#1a1b1e",
-              color: "#e5e7eb",
+              backgroundColor: theme === 'light' ? "#f0f4f8" : "#1a1b1e",
+              color: theme === 'light' ? "#374151" : "#e5e7eb",
             }}
           >
-            <h2
-              style={{
-                fontSize: "22px",
-                marginBottom: "20px",
-                color: "#d1d5db",
+            <div style={{ 
+              display: "flex",
+              alignItems: "center",
+              gap: "8px",
+              marginBottom: "20px",
+            }}>
+              <ShoppingCart 
+                style={{ 
+                  width: "24px",
+                  height: "24px",
+                  color: "#2563eb",
+                  position: "relative",
+                  top: "0px"
+                }}
+              />
+              <h2 style={{
+                fontSize: "26px",
+                fontFamily: "'Dancing Script', cursive",
+                color: theme === 'light' ? "#374151" : "#d1d5db",
+                margin: 0,
+                padding: 0,
+                lineHeight: 1,
+                marginTop: -27
+              }}>
+                Shopping List
+              </h2>
+            </div>
+            <div
+              style={{ 
+                display: "flex", 
+                flexDirection: "column", 
+                gap: "10px",
+                fontFamily: "system-ui, -apple-system, sans-serif"
               }}
             >
-              Shopping List
-            </h2>
-            <div
-              style={{ display: "flex", flexDirection: "column", gap: "10px" }}
-            >
               {weeklyItems.map((item) => (
-                <div key={item.id} style={{ fontSize: "18px" }}>
+                <div 
+                  key={item.id} 
+                  style={{ 
+                    fontSize: "16px",
+                    color: theme === 'light' ? "#374151" : "#e5e7eb"
+                  }}
+                >
                   {getFormattedItemText(item)}
                 </div>
               ))}
