@@ -10,7 +10,7 @@ docker run -d --name shopping-list -p 3200:80 --restart unless-stopped ghcr.io/j
 ```
 
 #### Demo
-If you want to try it out first, here is a **[demo](http://shoppinglistcn.netlify.com)**.
+If you want to try it out first, here is a **[demo](http://shoppinglistcn.netlify.app)**.
 
 ## Usage
 #### Adding Database Items
