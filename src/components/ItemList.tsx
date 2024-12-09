@@ -65,8 +65,8 @@ export function ItemList({
                             }`}
                             title={
                               item.inWeeklyShop
-                                ? "Remove from shopping list"
-                                : "Add to shopping list"
+                                ? "Remove from List"
+                                : "Add to List"
                             }
                           >
                             {item.inWeeklyShop ? (
@@ -91,14 +91,14 @@ export function ItemList({
                         <button
                           onClick={() => setEditingItemId(item.id)}
                           className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                          title="Edit item"
+                          title="Edit Item"
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onDeleteItem(item.id)}
                           className="p-2 text-gray-400 hover:text-red-400 transition-colors"
-                          title="Delete item"
+                          title="Delete Item"
                         >
                           <X className="w-4 h-4" />
                         </button>
