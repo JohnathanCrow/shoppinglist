@@ -29,8 +29,8 @@ If you want to try it out first, here is a **[demo](http://shoppinglistcn.netlif
 - Export your list using the clipboard, text, or image options
 - Reset the list to clear all selections
 #### Controls
-- Save: Save a backup of your database
-- Load: Load a backup of your database
+- Export: Save a backup of your database
+- Import: Load a backup of your database
 - Reset: Reset all items in your database (caution!)
 
 This usage guide can be found in the info icon beside the app header, alongside a light/dark mode toggle.
