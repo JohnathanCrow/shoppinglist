@@ -1,13 +1,16 @@
 # Shopping List
 ![screenshot](https://github.com/user-attachments/assets/5ac64a38-e2a5-4e97-b51b-f2e4f325ee19)
 
-A shopping list web app that you can self-host with docker. Data is saved locally via your browser, and can be exported/imported just in case.
+A shopping list web app that you can self-host with docker. Data is saved locally via your browser, and backups can be exported/imported.
 
 ## Installation
 #### Docker
 ```
 docker run -d --name shopping-list -p 3200:80 --restart unless-stopped ghcr.io/johnathancrow/shoppinglist:latest
 ```
+
+#### Demo
+If you want to try it out first, here is a **[demo](http://shoppinglistcn.netlify.com)**.
 
 ## Usage
 #### Adding Database Items
