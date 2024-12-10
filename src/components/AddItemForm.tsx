@@ -24,7 +24,7 @@ export function AddItemForm({ onAddItem }: AddItemFormProps) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="Add new item..."
-          className="flex-1 px-4 py-2 rounded-lg bg-gray-800 text-gray-400 placeholder-gray-400 border border-gray-700 focus:outline-none focus:border-blue-500 text-base"
+          className="flex-1 px-4 py-2 rounded-lg bg-gray-800 text-gray-400 placeholder-gray-500 border border-gray-700 focus:outline-none focus:border-blue-600/50 text-base"
         />
         <button
           type="submit"

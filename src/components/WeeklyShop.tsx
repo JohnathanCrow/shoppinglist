@@ -102,7 +102,7 @@ export function WeeklyShop({
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-3">
             <ListPlus className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-white">List</h2>
+            <h2 className="text-xl font-semibold text-gray-200">List</h2>
             <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm">
               {weeklyItems.length}
             </span>
@@ -110,28 +110,28 @@ export function WeeklyShop({
           <div className="flex gap-3">
             <button
               onClick={handleCopyToClipboard}
-              className="p-2 text-gray-400 hover:text-green-600 transition-colors"
+              className="p-2 text-gray-400 hover:text-green-500 transition-colors"
               title="Copy to Clipboard"
             >
               <Clipboard className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportText}
-              className="p-2 text-gray-400 hover:text-green-600 transition-colors"
+              className="p-2 text-gray-400 hover:text-green-500 transition-colors"
               title="Save as Text File"
             >
               <FileText className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportImage}
-              className="p-2 text-gray-400 hover:text-green-600 transition-colors"
+              className="p-2 text-gray-400 hover:text-green-500 transition-colors"
               title="Save as Image File"
             >
               <FileImage className="w-5 h-5" />
             </button>
             <button
               onClick={onResetWeeklyShop}
-              className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+              className="p-2 text-gray-400 hover:text-red-500 transition-colors"
               title="Clear List"
             >
               <Trash2 className="w-5 h-5" />
@@ -142,10 +142,10 @@ export function WeeklyShop({
         <div className="space-y-2">
           {weeklyItems.length === 0 ? (
             <p className="text-gray-400 text-base">
-              Add items to your weekly shop
+              Add items from your database to your list...
             </p>
           ) : (
-            <div className="space-y-0 bg-gray-700 rounded-lg">
+            <div className="space-y-0 bg-gray-400/5 rounded-lg">
               {weeklyItems.map((item) => (
                 <div
                   key={item.id}
@@ -159,8 +159,8 @@ export function WeeklyShop({
                       onClick={() => setEditingNoteId(item.id)}
                       className={`p-1.5 rounded-lg transition-colors ${
                         item.note
-                          ? "text-yellow-600 hover:text-yellow-300"
-                          : "text-gray-400 hover:text-gray-300"
+                          ? "text-yellow-400 hover:text-yellow-600"
+                          : "text-gray-400 hover:text-yellow-600"
                       }`}
                       title="Add/Edit Note"
                     >
@@ -171,12 +171,12 @@ export function WeeklyShop({
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-white border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
+                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-white border border-gray-400/20 dark:border-gray-400/20 focus:outline-none focus:border-blue-600/50 text-sm bg-gray-800"
                       title="Change Quantity"
                     />
                     <button
                       onClick={() => onToggleWeeklyShop(item.id)}
-                      className="p-1.5 text-gray-400 hover:text-red-400 transition-colors"
+                      className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
                       title="Remove Item"
                     >
                       <X className="w-4 h-4" />
