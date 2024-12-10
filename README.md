@@ -1,6 +1,5 @@
 # Shopping List
-![screenshot](https://github.com/user-attachments/assets/31f0ca0f-4a73-4a63-b95e-a48ad7b6a325)
-
+![screenshot0](https://github.com/user-attachments/assets/1f89c2b4-cb68-498b-b8de-448ddcc56f5c)
 A lightweight shopping list web app that you can self-host with docker. Data is saved locally via your browser, and backups can be exported/imported.
 
 ## Installation
