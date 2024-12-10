@@ -51,7 +51,7 @@ export function ItemList({
                       <div className="flex items-center gap-3 flex-1">
                         <div
                           {...provided.dragHandleProps}
-                          className="text-gray-400 cursor-grab"
+                          className="text-gray-500 cursor-grab"
                         >
                           <GripVertical className="w-5 h-5" />
                         </div>
@@ -60,8 +60,8 @@ export function ItemList({
                             onClick={() => onToggleWeeklyShop(item.id)}
                             className={`p-2 rounded-full transition-colors ${
                               item.inWeeklyShop
-                                ? "bg-emerald-500 hover:bg-emerald-600"
-                                : "bg-gray-700 hover:bg-gray-600"
+                                ? "bg-green-600 hover:bg-emerald-700"
+                                : "bg-gray-700 hover:bg-gray-400"
                             }`}
                             title={
                               item.inWeeklyShop
@@ -70,14 +70,14 @@ export function ItemList({
                             }
                           >
                             {item.inWeeklyShop ? (
-                              <Check className="w-4 h-4 text-white" />
+                              <Check className="w-4 h-4 text-gray-200" />
                             ) : (
-                              <Plus className="w-4 h-4 text-white" />
+                              <Plus className="w-4 h-4 text-gray-200" />
                             )}
                           </button>
                         )}
                         {item.type === "divider" && (
-                          <span className="font-bold text-gray-400 text-base">
+                          <span className="font-bold text-gray-200 text-base">
                             {item.name}
                           </span>
                         )}
@@ -90,14 +90,14 @@ export function ItemList({
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => setEditingItemId(item.id)}
-                          className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+                          className="p-2 text-gray-500 hover:text-blue-500 transition-colors"
                           title="Edit Item"
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onDeleteItem(item.id)}
-                          className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+                          className="p-2 text-gray-500 hover:text-red-500 transition-colors"
                           title="Delete Item"
                         >
                           <X className="w-4 h-4" />

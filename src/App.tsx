@@ -191,7 +191,7 @@ function App() {
         <div className="flex flex-col lg:flex-row gap-8 justify-center">
           <div className="w-full lg:w-[calc(50%-180px)]">
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
                 <ShoppingCart className="w-8 h-8 text-blue-600" />
                 <h1 className="text-3xl font-bold app-title">Shopping List</h1>
                 <button
@@ -207,7 +207,7 @@ function App() {
               <div className="flex gap-2 lg:hidden">
                 <button
                   onClick={handleBackupDatabase}
-                  className="flex items-center gap-2 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
                   title="Export Database"
                 >
                   <Download className="w-4 h-4" />
@@ -223,7 +223,7 @@ function App() {
                 </button>
                 <button
                   onClick={() => setShowResetModal(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
                   title="Reset Database"
                 >
                   <X className="w-4 h-4" />
@@ -231,7 +231,7 @@ function App() {
                 </button>
               </div>
             </div>
-            <div className="space-y-6">
+            <div className="space-y-4">
               <AddItemForm onAddItem={handleAddItem} />
               <ItemList
                 items={items}
@@ -246,7 +246,7 @@ function App() {
             <div className="hidden lg:flex gap-2 mb-6">
               <button
                 onClick={handleBackupDatabase}
-                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition-colors"
+                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                 title="Export Database"
               >
                 <Download className="w-4 h-4" />

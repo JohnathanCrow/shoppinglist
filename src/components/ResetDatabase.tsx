@@ -8,7 +8,7 @@ interface ResetDatabaseProps {
 
 export function ResetDatabase({ onReset, onClose }: ResetDatabaseProps) {
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center backdrop-blur-sm">
       <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
         <div className="flex items-center gap-3 mb-4 text-red-500">
           <AlertTriangle className="w-6 h-6" />

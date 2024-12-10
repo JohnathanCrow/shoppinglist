@@ -51,7 +51,6 @@ export function ExportList({ items, onClose }: ExportListProps) {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-gray-800 rounded-lg p-6 w-full max-w-md">
         <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold text-white">Export List</h3>
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors"
@@ -59,7 +58,6 @@ export function ExportList({ items, onClose }: ExportListProps) {
             <X className="w-5 h-5" />
           </button>
         </div>
-        
         <div ref={listRef} className="bg-gray-700 p-4 rounded-lg mb-4">
           <h4 className="text-lg font-semibold mb-2">Shopping List</h4>
           {items.map((item) => (
