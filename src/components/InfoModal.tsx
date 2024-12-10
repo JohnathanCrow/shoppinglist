@@ -66,8 +66,8 @@ export function InfoModal({ onClose }: InfoModalProps) {
           <section>
             <h4 className="font-semibold text-white mb-2">Controls</h4>
             <ul className="list-disc list-inside space-y-0">
-              <li>Save: Save a backup of your database</li>
-              <li>Load: Load a backup of your database</li>
+              <li>Export: Save a backup of your database</li>
+              <li>Import: Load a backup of your database</li>
               <li>Reset: Reset all items in your database (caution!)</li>
             </ul>
           </section>
