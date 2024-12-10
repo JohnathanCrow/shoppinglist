@@ -34,7 +34,7 @@ export function NoteModal({ item, onSave, onClose }: NoteModalProps) {
             type="text"
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="Add a note..."
+            placeholder="Add note..."
             className="w-full px-3 py-2 rounded-lg bg-gray-700 text-white placeholder-gray-400 border border-gray-600 focus:outline-none focus:border-blue-500 mb-4"
             autoFocus
           />
@@ -43,7 +43,7 @@ export function NoteModal({ item, onSave, onClose }: NoteModalProps) {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600 transition-colors"
+              className="flex-1 px-4 py-2 bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white rounded-lg hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
             >
               Cancel
             </button>

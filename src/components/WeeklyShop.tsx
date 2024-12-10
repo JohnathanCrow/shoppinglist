@@ -3,6 +3,7 @@ import {
   ListPlus,
   X,
   FileText,
+  FileImage,
   Image,
   Clipboard,
   Trash2,
@@ -88,7 +89,7 @@ export function WeeklyShop({
       a.download = "shopping-list.png";
       a.click();
     } catch (error) {
-      console.error("Error generating image:", error);
+      console.error("Error Generating Image:", error);
     } finally {
       element.style.display = "none";
       element.style.position = "static";
@@ -109,24 +110,24 @@ export function WeeklyShop({
           <div className="flex gap-3">
             <button
               onClick={handleCopyToClipboard}
-              className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+              className="p-2 text-gray-400 hover:text-green-600 transition-colors"
               title="Copy to Clipboard"
             >
               <Clipboard className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportText}
-              className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+              className="p-2 text-gray-400 hover:text-green-600 transition-colors"
               title="Save as Text File"
             >
               <FileText className="w-5 h-5" />
             </button>
             <button
               onClick={handleExportImage}
-              className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
+              className="p-2 text-gray-400 hover:text-green-600 transition-colors"
               title="Save as Image File"
             >
-              <Image className="w-5 h-5" />
+              <FileImage className="w-5 h-5" />
             </button>
             <button
               onClick={onResetWeeklyShop}
@@ -170,7 +171,7 @@ export function WeeklyShop({
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className="w-12 px-2 py-1 rounded text-gray-500 dark:text-white border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
+                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-white border border-gray-300/40 dark:border-gray-500 focus:outline-none focus:border-blue-500/50 text-sm bg-white/10"
                       title="Change Quantity"
                     />
                     <button

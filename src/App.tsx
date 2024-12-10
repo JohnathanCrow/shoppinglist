@@ -202,6 +202,7 @@ function App() {
                   <Info className="w-6 h-6" />
                 </button>
                 <ThemeToggle />
+                
               </div>
               <div className="flex gap-2 lg:hidden">
                 <button
@@ -214,7 +215,7 @@ function App() {
                 </button>
                 <button
                   onClick={handleLoadBackup}
-                  className="flex items-center gap-2 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
                   title="Import Database"
                 >
                   <Upload className="w-4 h-4" />
