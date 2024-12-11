@@ -98,9 +98,9 @@ export function WeeklyShop({
 
   return (
     <>
-      <div className="bg-gray-800 rounded-lg p-5 sticky top-4">
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center gap-3">
+      <div className="bg-gray-800 rounded-lg p-4 sticky top-4">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
             <ListPlus className="w-6 h-6 text-blue-600" />
             <h2 className="text-xl font-semibold text-gray-200">List</h2>
             <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm">

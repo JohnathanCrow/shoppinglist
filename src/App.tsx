@@ -185,13 +185,14 @@ function App() {
     setItems(result);
   };
 
+
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
-      <div className="container mx-auto px-4 py-8 max-w-[1200px]">
-        <div className="flex flex-col lg:flex-row gap-8 justify-center">
-          <div className="w-full lg:w-[calc(50%-180px)]">
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
+    <div className="min-h-screen bg-gray-900 text-gray-200">
+      <div className="container mx-auto px-4 py-4 max-w-[1200px]">
+        <div className="flex flex-col md:flex-row gap-4 justify-center">
+          <div className="w-full md:w-[360px] md:shrink-0">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center gap-3">
                 <ShoppingCart className="w-8 h-8 text-blue-600" />
                 <h1 className="text-3xl font-bold app-title">Shopping List</h1>
                 <button
@@ -202,32 +203,28 @@ function App() {
                   <Info className="w-6 h-6" />
                 </button>
                 <ThemeToggle />
-                
               </div>
-              <div className="flex gap-2 lg:hidden">
+              <div className="flex gap-2 md:hidden">
                 <button
                   onClick={handleBackupDatabase}
-                  className="flex items-center gap-2 px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                  className="flex items-center justify-center w-10 h-10 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                   title="Export Database"
                 >
                   <Download className="w-4 h-4" />
-                  Export
                 </button>
                 <button
                   onClick={handleLoadBackup}
-                  className="flex items-center gap-2 px-4 py-2 bg-yellow-500 text-white rounded-lg hover:bg-yellow-600 transition-colors"
+                  className="flex items-center justify-center w-10 h-10 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
                   title="Import Database"
                 >
                   <Upload className="w-4 h-4" />
-                  Import
                 </button>
                 <button
                   onClick={() => setShowResetModal(true)}
-                  className="flex items-center gap-2 px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                  className="flex items-center justify-center w-10 h-10 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
                   title="Reset Database"
                 >
                   <X className="w-4 h-4" />
-                  Reset
                 </button>
               </div>
             </div>
@@ -242,11 +239,11 @@ function App() {
               />
             </div>
           </div>
-          <div className="w-full lg:w-[360px] shrink-0">
-            <div className="hidden lg:flex gap-2 mb-6">
+          <div className="w-full md:w-[360px] md:shrink-0">
+            <div className="hidden md:flex gap-3 mb-4">
               <button
                 onClick={handleBackupDatabase}
-                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                className="flex items-center justify-center w-full px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors gap-2"
                 title="Export Database"
               >
                 <Download className="w-4 h-4" />
@@ -254,7 +251,7 @@ function App() {
               </button>
               <button
                 onClick={handleLoadBackup}
-                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors"
+                className="flex items-center justify-center w-full px-4 py-2 bg-yellow-600 text-white rounded-lg hover:bg-yellow-700 transition-colors gap-2"
                 title="Import Database"
               >
                 <Upload className="w-4 h-4" />
@@ -262,7 +259,7 @@ function App() {
               </button>
               <button
                 onClick={() => setShowResetModal(true)}
-                className="flex items-center justify-center gap-2 flex-1 px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors"
+                className="flex items-center justify-center w-full px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700 transition-colors gap-2"
                 title="Reset Database"
               >
                 <X className="w-4 h-4" />
