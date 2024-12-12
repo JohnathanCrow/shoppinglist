@@ -32,22 +32,29 @@ export function WeeklyShop({
   onResetWeeklyShop,
 }: WeeklyShopProps) {
   const weeklyItems = items.filter((item) => item.inWeeklyShop);
+  // Filters items to only include those in the weekly shop.
+
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
+  // Manages the state for editing item notes.
+
   const { theme } = useTheme();
   const { handleCopyToClipboard, handleExportText, handleExportImage } = useExport(weeklyItems);
+  // Uses a custom hook for export functionality.
 
   return (
     <>
       <div className="bg-gray-800 rounded-lg p-4 sticky top-4" role="region" aria-label="Shopping List">
+        {/* Main container for the weekly shopping list. */}
         <div className="flex items-center justify-between mb-3">
+          {/* Header: Title, item count, and action buttons. */}
           <div className="flex items-center gap-2">
-
             <h2 className="text-xl text-gray-200">Basket</h2>
             <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm" role="status">
               {weeklyItems.length}
             </span>
           </div>
           <div className="flex gap-3">
+            {/* Export and Clear buttons. */}
             <button
               onClick={handleCopyToClipboard}
               className="p-2 text-gray-400 hover:text-green-500 transition-colors"
@@ -84,17 +91,20 @@ export function WeeklyShop({
         </div>
 
         <div className="space-y-2">
+          {/* Conditional rendering: Message or list of items. */}
           {weeklyItems.length === 0 ? (
             <p className="text-gray-400 text-base" role="status">
               Add items from your database to your list...
             </p>
           ) : (
             <div className="space-y-0 bg-gray-400/5 rounded-lg">
+              {/* Maps over weekly items to display each one. */}
               {weeklyItems.map((item) => (
                 <div
                   key={item.id}
                   className="flex items-center justify-between p-3 rounded-lg"
                 >
+                  {/* Individual item display with note, quantity, and remove options. */}
                   <div className="flex-1">
                     <span className="text-gray-200 text-base">{item.name}</span>
                   </div>
@@ -136,6 +146,7 @@ export function WeeklyShop({
         </div>
 
         <ExportImage items={weeklyItems} theme={theme} />
+        {/* Component for exporting as image. */}
       </div>
 
       {editingNoteId && (
