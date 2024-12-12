@@ -10,6 +10,7 @@ import { Item } from "./types";
 import { v4 as uuidv4 } from "uuid";
 
 function App() {
+  // State management for shopping items and modal visibility
   const [items, setItems] = useState<Item[]>(() => {
     const saved = localStorage.getItem("shoppingItems");
     return saved ? JSON.parse(saved) : [];
@@ -18,10 +19,12 @@ function App() {
   const [showInfoModal, setShowInfoModal] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  // Persist shopping items to localStorage whenever they change
   useEffect(() => {
     localStorage.setItem("shoppingItems", JSON.stringify(items));
   }, [items]);
 
+  // Function to handle adding new items or sections (dividers)
   const handleAddItem = (name: string) => {
     const isDivider = name.startsWith("-");
     const dividerName = isDivider ? name.slice(1).trim() : "";
@@ -92,6 +95,7 @@ function App() {
     });
   };
 
+  // Handlers for editing, toggling, updating, or deleting items
   const handleEditItem = (id: string, name: string) => {
     setItems((prev) =>
       prev.map((item) => (item.id === id ? { ...item, name } : item))
@@ -124,6 +128,7 @@ function App() {
     setItems((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // Handlers for resetting and backing up/restoring the database
   const handleResetDatabase = () => {
     setItems([]);
     setShowResetModal(false);
@@ -169,6 +174,7 @@ function App() {
     }
   };
 
+  // Reset weekly shop specifics
   const handleResetWeeklyShop = () => {
     setItems((prev) =>
       prev.map((item) => ({
@@ -180,6 +186,7 @@ function App() {
     );
   };
 
+  // Reorder items in the shopping list
   const handleReorder = (startIndex: number, endIndex: number) => {
     const result = Array.from(items);
     const [removed] = result.splice(startIndex, 1);
@@ -187,11 +194,13 @@ function App() {
     setItems(result);
   };
 
+  // Render the shopping list application UI
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
       <div className="container mx-auto px-4 py-3 max-w-[1200px]">
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <div className="w-full md:w-[360px] md:shrink-0">
+            {/* Header and theme toggle */}
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-0">
                 <h1 className="text-3xl font-bold app-title">Shopping List</h1>
@@ -204,6 +213,7 @@ function App() {
                 </button>
                 <ThemeToggle />
               </div>
+              {/* Action buttons for mobile */}
               <div className="flex gap-2 md:hidden">
                 <button
                   onClick={handleBackupDatabase}
@@ -228,6 +238,7 @@ function App() {
                 </button>
               </div>
             </div>
+            {/* Item management */}
             <div className="space-y-4">
               <AddItemForm onAddItem={handleAddItem} />
               <ItemList
@@ -240,6 +251,7 @@ function App() {
             </div>
           </div>
           <div className="w-full md:w-[360px] md:shrink-0">
+            {/* Weekly shop actions for desktop */}
             <div className="hidden md:flex gap-3 mb-4">
               <button
                 onClick={handleBackupDatabase}
@@ -277,6 +289,7 @@ function App() {
         </div>
       </div>
 
+      {/* Hidden input for file upload */}
       <input
         type="file"
         ref={fileInputRef}
@@ -285,6 +298,7 @@ function App() {
         className="hidden"
       />
 
+      {/* Modals for reset and info */}
       {showResetModal && (
         <ResetDatabase
           onReset={handleResetDatabase}
