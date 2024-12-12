@@ -1,3 +1,4 @@
+// Component for displaying and managing the database items
 import React, { useState } from "react";
 import { Check, Plus, X, GripVertical, Pencil } from "lucide-react";
 import { Item } from "../types";
@@ -19,8 +20,10 @@ export function ItemList({
   onReorder,
   onEditItem,
 }: ItemListProps) {
+  // State for tracking which item is being edited
   const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
+  // Handle drag and drop reordering
   const handleDragEnd = (result: any) => {
     if (!result.destination) return;
     onReorder(result.source.index, result.destination.index);
@@ -28,6 +31,7 @@ export function ItemList({
 
   return (
     <>
+      {/* Drag and drop context for item reordering */}
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="items">
           {(provided) => (
@@ -36,6 +40,7 @@ export function ItemList({
               ref={provided.innerRef}
               className="space-y-2"
             >
+              {/* Map through items and render each one */}
               {items.map((item, index) => (
                 <Draggable key={item.id} draggableId={item.id} index={index}>
                   {(provided) => (
@@ -48,13 +53,15 @@ export function ItemList({
                           : "bg-gray-800 dark:bg-gray-800 hover:bg-gray-400/20"
                       }`}
                     >
+                      {/* Item content and controls */}
                       <div className="flex items-center gap-3 flex-1">
                         <div
                           {...provided.dragHandleProps}
-                          className="text-gray-500 cursor-grab"
+                          className="text-gray-400 cursor-grab"
                         >
                           <GripVertical className="w-5 h-5" />
                         </div>
+                        {/* Toggle button for regular items */}
                         {item.type === "item" && (
                           <button
                             onClick={() => onToggleWeeklyShop(item.id)}
@@ -76,28 +83,29 @@ export function ItemList({
                             )}
                           </button>
                         )}
-                        {item.type === "divider" && (
+                        {/* Display name based on item type */}
+                        {item.type === "divider" ? (
                           <span className="font-bold text-gray-200 text-base">
                             {item.name}
                           </span>
-                        )}
-                        {item.type === "item" && (
+                        ) : (
                           <span className="text-gray-200 dark:text-gray-200 text-base">
                             {item.name}
                           </span>
                         )}
                       </div>
+                      {/* Item actions */}
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => setEditingItemId(item.id)}
-                          className="p-2 text-gray-500 hover:text-blue-500 transition-colors"
+                          className="p-2 text-gray-400 hover:text-blue-500 transition-colors"
                           title="Edit Item"
                         >
                           <Pencil className="w-4 h-4" />
                         </button>
                         <button
                           onClick={() => onDeleteItem(item.id)}
-                          className="p-2 text-gray-500 hover:text-red-500 transition-colors"
+                          className="p-2 text-gray-400 hover:text-red-500 transition-colors"
                           title="Delete Item"
                         >
                           <X className="w-4 h-4" />
@@ -113,6 +121,7 @@ export function ItemList({
         </Droppable>
       </DragDropContext>
 
+      {/* Edit modal */}
       {editingItemId && (
         <EditItemModal
           item={items.find((item) => item.id === editingItemId)!}

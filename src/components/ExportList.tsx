@@ -53,7 +53,7 @@ export function ExportList({ items, onClose }: ExportListProps) {
         <div className="flex justify-between items-center mb-4">
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white transition-colors"
+            className="text-gray-400 hover:text-gray-200 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -70,21 +70,21 @@ export function ExportList({ items, onClose }: ExportListProps) {
         <div className="flex gap-4">
           <button
             onClick={copyToClipboard}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-gray-200 rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Clipboard className="w-4 h-4" />
             Copy to Clipboard
           </button>
           <button
             onClick={exportAsText}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-gray-200 rounded-lg hover:bg-blue-700 transition-colors"
           >
             <FileText className="w-4 h-4" />
             Save as Text
           </button>
           <button
             onClick={exportAsImage}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-gray-200 rounded-lg hover:bg-blue-700 transition-colors"
           >
             <Image className="w-4 h-4" />
             Save as Image
