@@ -5,11 +5,11 @@ A lightweight shopping list web app that you can self-host with docker. Data is 
 ## Installation
 #### Docker
 ```
-docker run -d --name shopping-list -p 3200:80 --restart unless-stopped ghcr.io/johnathancrow/shoppinglist:latest
+docker run -d --name shoppinglist -p 3200:80 --restart unless-stopped ghcr.io/johnathancrow/shoppinglist:latest
 ```
 
 #### Demo
-If you want to try it out first, here is a **[demo](http://shoppinglistcn.netlify.app)**.
+If you want to try it out first, here is a **[demo](http://shoppinglist-preview.netlify.app)**.
 
 ## Usage
 #### Adding Database Items
@@ -18,15 +18,15 @@ If you want to try it out first, here is a **[demo](http://shoppinglistcn.netlif
 - Append a divider to automatically place the item (e.g., "Apple -Fruit")
 #### Managing Database Items
 - Drag the left edge of an item to reorder
-- Click the + icon to add it to your list
+- Click the + icon to add it to your basket
 - Click the pencil icon to edit the item
 - Click the x icon to delete the item
-#### Managing List Items
+#### Managing Basket Items
 - Add notes to items using the message icon
 - Adjust quantities using the number input
 - Remove items by using the x icon
-- Export your list using the clipboard, text, or image options
-- Reset the list to clear all selections
+- Export your basket using the clipboard, text, or image icons
+- Reset the basket using the bin icon
 #### Controls
 - Export: Save a backup of your database
 - Import: Load a backup of your database

@@ -43,7 +43,7 @@ export function InfoModal({ onClose }: InfoModalProps) {
             </h4>
             <ul className="list-disc list-inside space-y-0">
               <li>Drag the left edge of an item to reorder</li>
-              <li>Click the + icon to add it to your list</li>
+              <li>Click the + icon to add it to your basket</li>
               <li>Click the pencil icon to edit the item</li>
               <li>Click the x icon to delete the item</li>
             </ul>
@@ -52,14 +52,14 @@ export function InfoModal({ onClose }: InfoModalProps) {
           {/* List management section */}
           <section>
             <h4 className="font-semibold text-gray-200 mb-2">
-              Managing List Items
+              Managing Basket Items
             </h4>
             <ul className="list-disc list-inside space-y-0">
               <li>Add notes to items using the message icon</li>
               <li>Adjust quantities using the number input</li>
               <li>Remove items by using the x icon</li>
-              <li>Export your list using various options</li>
-              <li>Reset the list using the upper right x icon</li>
+              <li>Export your basket using the clipboard, text, or image icons</li>
+              <li>Reset the basket using the bin icon</li>
             </ul>
           </section>
 
