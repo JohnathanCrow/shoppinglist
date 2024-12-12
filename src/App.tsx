@@ -1,16 +1,17 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { ShoppingCart, Download, Upload, X, Info } from 'lucide-react';
-import { AddItemForm } from './components/AddItemForm';
-import { ItemList } from './components/ItemList';
-import { WeeklyShop } from './components/WeeklyShop';
-import { ResetDatabase } from './components/ResetDatabase';
-import { InfoModal } from './components/InfoModal';
-import { ThemeToggle } from './components/ThemeToggle';
-import { Item } from './types';
+import React, { useEffect, useState, useRef } from "react";
+import { Download, Upload, X, Info } from "lucide-react";
+import { AddItemForm } from "./components/AddItemForm";
+import { ItemList } from "./components/ItemList";
+import { WeeklyShop } from "./components/WeeklyShop";
+import { ResetDatabase } from "./components/ResetDatabase";
+import { InfoModal } from "./components/InfoModal";
+import { ThemeToggle } from "./components/ThemeToggle";
+import { Item } from "./types";
+import { v4 as uuidv4 } from "uuid";
 
 function App() {
   const [items, setItems] = useState<Item[]>(() => {
-    const saved = localStorage.getItem('shoppingItems');
+    const saved = localStorage.getItem("shoppingItems");
     return saved ? JSON.parse(saved) : [];
   });
   const [showResetModal, setShowResetModal] = useState(false);
@@ -18,22 +19,22 @@ function App() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    localStorage.setItem('shoppingItems', JSON.stringify(items));
+    localStorage.setItem("shoppingItems", JSON.stringify(items));
   }, [items]);
 
   const handleAddItem = (name: string) => {
-    const isDivider = name.startsWith('-');
-    const dividerName = isDivider ? name.slice(1).trim() : '';
-    
-    const [itemName, sectionName] = name.split('-').map(s => s.trim());
-    
+    const isDivider = name.startsWith("-");
+    const dividerName = isDivider ? name.slice(1).trim() : "";
+
+    const [itemName, sectionName] = name.split("-").map((s) => s.trim());
+
     const newItem = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       name: isDivider ? dividerName : itemName,
       inWeeklyShop: false,
       quantity: 1,
       lastAdded: new Date().toISOString(),
-      type: isDivider ? 'divider' : 'item' as const,
+      type: isDivider ? "divider" : ("item" as const),
     };
 
     setItems((prev) => {
@@ -46,36 +47,39 @@ function App() {
       }
 
       const sectionExists = prev.some(
-        item => item.type === 'divider' && item.name.toLowerCase() === sectionName.toLowerCase()
+        (item) =>
+          item.type === "divider" &&
+          item.name.toLowerCase() === sectionName.toLowerCase()
       );
 
-      const updatedItems = sectionExists ? prev : [
-        ...prev,
-        {
-          id: crypto.randomUUID(),
-          name: sectionName,
-          inWeeklyShop: false,
-          quantity: 1,
-          lastAdded: new Date().toISOString(),
-          type: 'divider' as const,
-        }
-      ];
+      const updatedItems = sectionExists
+        ? prev
+        : [
+            ...prev,
+            {
+              id: uuidv4(),
+              name: sectionName,
+              inWeeklyShop: false,
+              quantity: 1,
+              lastAdded: new Date().toISOString(),
+              type: "divider" as const,
+            },
+          ];
 
-      const sections = updatedItems.reduce<{ start: number; end: number; name: string }[]>(
-        (acc, item, index) => {
-          if (item.type === 'divider') {
-            if (acc.length > 0) {
-              acc[acc.length - 1].end = index;
-            }
-            acc.push({ start: index, end: updatedItems.length, name: item.name });
+      const sections = updatedItems.reduce<
+        { start: number; end: number; name: string }[]
+      >((acc, item, index) => {
+        if (item.type === "divider") {
+          if (acc.length > 0) {
+            acc[acc.length - 1].end = index;
           }
-          return acc;
-        },
-        []
-      );
+          acc.push({ start: index, end: updatedItems.length, name: item.name });
+        }
+        return acc;
+      }, []);
 
-      const matchingSection = sections.find(section => 
-        section.name.toLowerCase() === sectionName.toLowerCase()
+      const matchingSection = sections.find(
+        (section) => section.name.toLowerCase() === sectionName.toLowerCase()
       );
 
       if (!matchingSection) {
@@ -90,9 +94,7 @@ function App() {
 
   const handleEditItem = (id: string, name: string) => {
     setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, name } : item
-      )
+      prev.map((item) => (item.id === id ? { ...item, name } : item))
     );
   };
 
@@ -114,9 +116,7 @@ function App() {
 
   const handleUpdateNote = (id: string, note: string) => {
     setItems((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, note } : item
-      )
+      prev.map((item) => (item.id === id ? { ...item, note } : item))
     );
   };
 
@@ -131,11 +131,13 @@ function App() {
 
   const handleBackupDatabase = () => {
     const data = JSON.stringify(items, null, 2);
-    const blob = new Blob([data], { type: 'application/json' });
+    const blob = new Blob([data], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+    const a = document.createElement("a");
     a.href = url;
-    a.download = `shopping-list-backup-${new Date().toISOString().split('T')[0]}.json`;
+    a.download = `shopping-list-backup-${
+      new Date().toISOString().split("T")[0]
+    }.json`;
     a.click();
     URL.revokeObjectURL(url);
   };
@@ -157,13 +159,13 @@ function App() {
           setItems(parsedData);
         }
       } catch (error) {
-        console.error('Error Loading Backup:', error);
-        alert('Invalid Backup');
+        console.error("Error Loading Backup:", error);
+        alert("Invalid Backup");
       }
     };
     reader.readAsText(file);
     if (event.target) {
-      event.target.value = '';
+      event.target.value = "";
     }
   };
 
@@ -185,10 +187,9 @@ function App() {
     setItems(result);
   };
 
-
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
-      <div className="container mx-auto px-4 py-4 max-w-[1200px]">
+      <div className="container mx-auto px-4 py-3 max-w-[1200px]">
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <div className="w-full md:w-[360px] md:shrink-0">
             <div className="flex items-center justify-between mb-4">
@@ -266,7 +267,7 @@ function App() {
               </button>
             </div>
             <WeeklyShop
-              items={items.filter(item => item.type === 'item')}
+              items={items.filter((item) => item.type === "item")}
               onToggleWeeklyShop={handleToggleWeeklyShop}
               onUpdateQuantity={handleUpdateQuantity}
               onUpdateNote={handleUpdateNote}
@@ -291,9 +292,7 @@ function App() {
         />
       )}
 
-      {showInfoModal && (
-        <InfoModal onClose={() => setShowInfoModal(false)} />
-      )}
+      {showInfoModal && <InfoModal onClose={() => setShowInfoModal(false)} />}
     </div>
   );
 }
