@@ -42,7 +42,7 @@ export function WeeklyShop({
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
 
-            <h2 className="text-xl text-gray-100">Basket</h2>
+            <h2 className="text-xl text-gray-200">Basket</h2>
             <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm" role="status">
               {weeklyItems.length}
             </span>
