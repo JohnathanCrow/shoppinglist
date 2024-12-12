@@ -1,3 +1,4 @@
+// Form component for adding new items to the shopping list
 import React, { useState } from 'react';
 import { PlusCircle } from 'lucide-react';
 
@@ -6,8 +7,10 @@ interface AddItemFormProps {
 }
 
 export function AddItemForm({ onAddItem }: AddItemFormProps) {
+  // State for the input field
   const [name, setName] = useState('');
 
+  // Handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (name.trim()) {

@@ -12,7 +12,8 @@ import {
 } from "lucide-react";
 import { Item } from "../types";
 import { NoteModal } from "./NoteModal";
-import html2canvas from "html2canvas";
+import { ExportImage } from "./ExportImage";
+import { useExport } from "../hooks/useExport";
 import { useTheme } from "../contexts/ThemeContext";
 
 interface WeeklyShopProps {
@@ -33,77 +34,16 @@ export function WeeklyShop({
   const weeklyItems = items.filter((item) => item.inWeeklyShop);
   const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
   const { theme } = useTheme();
-
-  const getFormattedItemText = (item: Item) => {
-    let text = item.name;
-    if (item.note) {
-      text += ` (${item.note})`;
-    }
-    if (item.quantity > 1) {
-      text += ` x${item.quantity}`;
-    }
-    return text;
-  };
-
-  const getFormattedList = () => {
-    return weeklyItems.map(getFormattedItemText).join("\n");
-  };
-
-  const handleCopyToClipboard = async () => {
-    const text = getFormattedList();
-    await navigator.clipboard.writeText(text);
-  };
-
-  const handleExportText = () => {
-    const text = getFormattedList();
-    const blob = new Blob([text], { type: "text/plain" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "shopping-list.txt";
-    a.click();
-    URL.revokeObjectURL(url);
-  };
-
-  const handleExportImage = async () => {
-    const element = document.getElementById("weekly-shop-export");
-    if (!element) return;
-
-    element.style.position = "fixed";
-    element.style.left = "-9999px";
-    element.style.top = "0";
-    element.style.display = "block";
-
-    try {
-      const canvas = await html2canvas(element, {
-        backgroundColor: theme === 'light' ? "#f0f4f8" : "#1a1b1e",
-        scale: 2,
-        logging: false,
-        useCORS: true,
-        allowTaint: true,
-      });
-
-      const url = canvas.toDataURL("image/png");
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = "shopping-list.png";
-      a.click();
-    } catch (error) {
-      console.error("Error Generating Image:", error);
-    } finally {
-      element.style.display = "none";
-      element.style.position = "static";
-    }
-  };
+  const { handleCopyToClipboard, handleExportText, handleExportImage } = useExport(weeklyItems);
 
   return (
     <>
-      <div className="bg-gray-800 rounded-lg p-4 sticky top-4">
+      <div className="bg-gray-800 rounded-lg p-4 sticky top-4" role="region" aria-label="Shopping List">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
-            <ListPlus className="w-6 h-6 text-blue-600" />
-            <h2 className="text-xl font-semibold text-gray-200">List</h2>
-            <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm">
+
+            <h2 className="text-xl text-gray-100">Basket</h2>
+            <span className="bg-blue-600 text-white px-2 py-1 rounded-full text-sm" role="status">
               {weeklyItems.length}
             </span>
           </div>
@@ -112,36 +52,40 @@ export function WeeklyShop({
               onClick={handleCopyToClipboard}
               className="p-2 text-gray-400 hover:text-green-500 transition-colors"
               title="Copy to Clipboard"
+              aria-label="Copy list to clipboard"
             >
-              <Clipboard className="w-5 h-5" />
+              <Clipboard className="w-5 h-5" aria-hidden="true" />
             </button>
             <button
               onClick={handleExportText}
               className="p-2 text-gray-400 hover:text-green-500 transition-colors"
               title="Save as Text File"
+              aria-label="Save list as text file"
             >
-              <FileText className="w-5 h-5" />
+              <FileText className="w-5 h-5" aria-hidden="true" />
             </button>
             <button
               onClick={handleExportImage}
               className="p-2 text-gray-400 hover:text-green-500 transition-colors"
               title="Save as Image File"
+              aria-label="Save list as image file"
             >
-              <FileImage className="w-5 h-5" />
+              <FileImage className="w-5 h-5" aria-hidden="true" />
             </button>
             <button
               onClick={onResetWeeklyShop}
               className="p-2 text-gray-400 hover:text-red-500 transition-colors"
               title="Clear List"
+              aria-label="Clear shopping list"
             >
-              <Trash2 className="w-5 h-5" />
+              <Trash2 className="w-5 h-5" aria-hidden="true" />
             </button>
           </div>
         </div>
 
         <div className="space-y-2">
           {weeklyItems.length === 0 ? (
-            <p className="text-gray-400 text-base">
+            <p className="text-gray-400 text-base" role="status">
               Add items from your database to your list...
             </p>
           ) : (
@@ -163,23 +107,26 @@ export function WeeklyShop({
                           : "text-gray-400 hover:text-yellow-600"
                       }`}
                       title="Add/Edit Note"
+                      aria-label={`${item.note ? 'Edit' : 'Add'} note for ${item.name}`}
                     >
-                      <MessageSquare className="w-4 h-4" />
+                      <MessageSquare className="w-4 h-4" aria-hidden="true" />
                     </button>
                     <input
                       type="number"
                       min="1"
                       value={item.quantity}
                       onChange={(e) => onUpdateQuantity(item.id, parseInt(e.target.value) || 1)}
-                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-white border border-gray-400/20 dark:border-gray-400/20 focus:outline-none focus:border-blue-600/50 text-sm bg-gray-800"
+                      className="w-12 px-2 py-1 rounded text-gray-400 dark:text-gray-200 border border-gray-400/20 dark:border-gray-400/20 focus:outline-none focus:border-blue-600/50 text-sm bg-gray-800"
                       title="Change Quantity"
+                      aria-label={`Quantity for ${item.name}`}
                     />
                     <button
                       onClick={() => onToggleWeeklyShop(item.id)}
                       className="p-1.5 text-gray-400 hover:text-red-500 transition-colors"
                       title="Remove Item"
+                      aria-label={`Remove ${item.name} from list`}
                     >
-                      <X className="w-4 h-4" />
+                      <X className="w-4 h-4" aria-hidden="true" />
                     </button>
                   </div>
                 </div>
@@ -188,65 +135,7 @@ export function WeeklyShop({
           )}
         </div>
 
-        {/* Hidden element for image export */}
-        <div id="weekly-shop-export" className="hidden">
-          <div
-            style={{
-              width: "300px",
-              padding: "20px",
-              backgroundColor: theme === 'light' ? "#f0f4f8" : "#1a1b1e",
-              color: theme === 'light' ? "#374151" : "#e5e7eb",
-            }}
-          >
-            <div style={{ 
-              display: "flex",
-              alignItems: "center",
-              gap: "8px",
-              marginBottom: "20px",
-            }}>
-              <ShoppingCart 
-                style={{ 
-                  width: "24px",
-                  height: "24px",
-                  color: "#2563eb",
-                  position: "relative",
-                  top: "0px"
-                }}
-              />
-              <h2 style={{
-                fontSize: "26px",
-                fontFamily: "'Dancing Script', cursive",
-                color: theme === 'light' ? "#374151" : "#d1d5db",
-                margin: 0,
-                padding: 0,
-                lineHeight: 1,
-                marginTop: -27
-              }}>
-                Shopping List
-              </h2>
-            </div>
-            <div
-              style={{ 
-                display: "flex", 
-                flexDirection: "column", 
-                gap: "10px",
-                fontFamily: "system-ui, -apple-system, sans-serif"
-              }}
-            >
-              {weeklyItems.map((item) => (
-                <div 
-                  key={item.id} 
-                  style={{ 
-                    fontSize: "16px",
-                    color: theme === 'light' ? "#374151" : "#e5e7eb"
-                  }}
-                >
-                  {getFormattedItemText(item)}
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <ExportImage items={weeklyItems} theme={theme} />
       </div>
 
       {editingNoteId && (
