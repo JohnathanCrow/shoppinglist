@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { ShoppingCart, Download, Upload, X, Info } from 'lucide-react';
+import { Download, Upload, X, Info } from 'lucide-react';
 import { AddItemForm } from './components/AddItemForm';
 import { ItemList } from './components/ItemList';
 import { WeeklyShop } from './components/WeeklyShop';
@@ -7,6 +7,7 @@ import { ResetDatabase } from './components/ResetDatabase';
 import { InfoModal } from './components/InfoModal';
 import { ThemeToggle } from './components/ThemeToggle';
 import { Item } from './types';
+import { v4 as uuidv4 } from 'uuid';
 
 function App() {
   const [items, setItems] = useState<Item[]>(() => {
@@ -28,7 +29,7 @@ function App() {
     const [itemName, sectionName] = name.split('-').map(s => s.trim());
     
     const newItem = {
-      id: crypto.randomUUID(),
+      id: uuidv4(),
       name: isDivider ? dividerName : itemName,
       inWeeklyShop: false,
       quantity: 1,
@@ -52,7 +53,7 @@ function App() {
       const updatedItems = sectionExists ? prev : [
         ...prev,
         {
-          id: crypto.randomUUID(),
+          id: crypto.uuidv4(),
           name: sectionName,
           inWeeklyShop: false,
           quantity: 1,
@@ -188,7 +189,7 @@ function App() {
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100">
-      <div className="container mx-auto px-4 py-4 max-w-[1200px]">
+      <div className="container mx-auto px-4 py-3 max-w-[1200px]">
         <div className="flex flex-col md:flex-row gap-4 justify-center">
           <div className="w-full md:w-[360px] md:shrink-0">
             <div className="flex items-center justify-between mb-4">
